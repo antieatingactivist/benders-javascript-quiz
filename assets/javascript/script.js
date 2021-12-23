@@ -27,6 +27,30 @@ var questions = [{
     q: "What is the name of the DonBot's Joe-Pesci-like henchman?",
     choices: ["Bender","Clamps","Calculon","PreacherBot"],
     correctAnswer: 1
+},{
+    q: "Who is the most prominent President of Earth?",
+    choices: ["Mayor Poopinmeyer","Trump's left foot","Ogden Wurnstrom","Richard Nixon's Head"],
+    correctAnswer: 3
+},{
+    q: "What is Fry's favorite somewhat addictive beverage?",
+    choices: ["Mountain Dew","LöBrau","Slurm","Maltese Liquor"],
+    correctAnswer: 2
+},{
+    q: "When Bender became God, who was his prophet?",
+    choices: ["Malakai","Ezekiel","Kif","L. Ron Hubbard"],
+    correctAnswer: 0   
+},{
+    q: "What was the problem with Popplers",
+    choices: ["They were very rare","They caused illness in humans","They were Omicronian babies","They were Hallucinogenic"],
+    correctAnswer: 2   
+},{
+    q: "Why does Mom want the last anchovies in existance?",
+    choices: ["They are great on Pizza","She knows Zoidberg likes them","She wants to resurrect the species","Their existance threatens her robot oil business"],
+    correctAnswer: 3   
+},{
+    q: "What is Elzar's spice of choice?",
+    choices: ["A blast from the Spice Weasel","Dash of Paprika","CBD oil","He prefered bland food"],
+    correctAnswer: 0   
 }
 ];
 
