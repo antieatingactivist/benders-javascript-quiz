@@ -62,6 +62,18 @@ function begin() {
     document.getElementById("question").style.display = "none";
     document.getElementById("game-start").style.display = "flex";
 }
+function restart() {
+
+    document.getElementById("correct-answers").innerHTML = correct;
+    document.getElementById("incorrect-answers").innerHTML = incorrect;
+    document.getElementById("game-board").style.display = "none";
+    document.getElementById("question").style.display = "none";
+    document.getElementById("game-start").style.display = "flex";
+    document.getElementById("game-start").innerHTML = 
+        "You got " + correct + "/" + questions.length + " answers correct!" + "<br><span>Another job well done.</span>";
+    correct = 0;
+    incorrect = 0;
+}
 function askQuestion(x) {
     document.getElementById("game-start").style.display = "none";
     document.getElementById("question").style.display = "flex";
@@ -90,7 +102,7 @@ function test(button) {
     currentQuestion++;
     if (currentQuestion === questions.length) {
         currentQuestion = 0;
-        begin();
+        restart();
         
     } else {
         askQuestion(currentQuestion);
