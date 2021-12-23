@@ -1,13 +1,16 @@
 * {
-    background-color: black;
+    
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     /* color: white; */
+    border-radius: 4px;
     
 }
 body {
+    background-color: black;
     display: flex;
     justify-content: center;
     color: white;
+    
 }
 main {
     color: black;
@@ -21,27 +24,65 @@ main {
     width: 50%;
     height: 400px;
     margin-top: 10%;
+    
 
 }
 div {
         background-color: #ffffff60;
         backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
+        font-size: 20px;
+        
        
 }
 #question {
+
+    font-family: 'futurama','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 80px;
     padding-right: 20px;   
     margin: 20px;
-    font-size: 28px;
+    font-size: 30px;
     text-align: center;
+    
+
+}
+section {
+    display: flex;
+    flex-direction: row;
+}
+#choice-block {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    background-color: #00000000;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 10px;
 
 }
 
 .choice {
     height: 30px;
-    margin: 10px 0px 10px 30px;
-    width: 70%;
+    margin: 10px 0px 10px 0px;
+    /* width: 70%; */
     padding: 5px 0px 0px 10px;
-    font-size: 20px
+    /* font-size: 20px; */
+}
+
+#score {
+    width: 30%;
+    background-color: #ffffff60;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    margin: 12px;
+}
+
+@font-face {
+    font-family: 'futurama';
+    src: url('../fonts/AMBIENT.TTF');
+    /* font-size: 40px; */
+   
 }
