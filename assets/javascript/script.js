@@ -1,6 +1,16 @@
 var correct = 0;
 var incorrect = 0;
 var currentQuestion = 0;
+var gameBoard = document.getElementById("game-board");
+var questionBox = document.getElementById("question");
+var startBox = document.getElementById("game-start");
+var restartBox = document.getElementById("game-restart");
+var correctAnswers = document.getElementById("correct-answers")
+var incorrectAnswers = document.getElementById("incorrect-answers")
+var choiceA = document.getElementById(0);
+var choiceB = document.getElementById(1);
+var choiceC = document.getElementById(2);
+var choiceD = document.getElementById(3);
 
 var questions = [{
 
@@ -56,34 +66,36 @@ var questions = [{
 function begin() {
     correct = 0;
     incorrect = 0;
-    document.getElementById("correct-answers").innerHTML = correct;
-    document.getElementById("incorrect-answers").innerHTML = incorrect;
-    document.getElementById("game-board").style.display = "none";
-    document.getElementById("question").style.display = "none";
-    document.getElementById("game-start").style.display = "flex";
+    correctAnswers.innerHTML = correct;
+    incorrectAnswers.innerHTML = incorrect;
+    gameBoard.style.display = "none";
+    questionBox.style.display = "none";
+    startBox.style.display = "flex";
 }
 function restart() {
 
-    document.getElementById("correct-answers").innerHTML = correct;
-    document.getElementById("incorrect-answers").innerHTML = incorrect;
-    document.getElementById("game-board").style.display = "none";
-    document.getElementById("question").style.display = "none";
-    document.getElementById("game-start").style.display = "flex";
-    document.getElementById("game-start").innerHTML = 
-        "You got " + correct + "/" + questions.length + " answers correct!" + "<br><span>Another job well done.</span>";
+    correctAnswers.innerHTML = correct;
+    incorrectAnswers.innerHTML = incorrect;
+    gameBoard.style.display = "none";
+    questionBox.style.display = "none";
+    restartBox.style.display = "flex";
+    startBox.style.display = "none";
+
+    
     correct = 0;
     incorrect = 0;
 }
 function askQuestion(x) {
-    document.getElementById("game-start").style.display = "none";
-    document.getElementById("question").style.display = "flex";
-    document.getElementById("game-board").style.display = "flex";
-    document.getElementById("question").innerHTML = "/n/n"; // blanks out string because of bug 
-    document.getElementById("question").innerHTML = questions[x].q;
-    document.getElementById(0).innerHTML = "A: " + questions[x].choices[0];
-    document.getElementById(1).innerHTML = "B: " + questions[x].choices[1];
-    document.getElementById(2).innerHTML = "C: " + questions[x].choices[2];
-    document.getElementById(3).innerHTML = "D: " + questions[x].choices[3];
+    startBox.style.display = "none";
+    restartBox.style.display = "none";
+    questionBox.style.display = "flex";
+    gameBoard.style.display = "flex";
+    questionBox.innerHTML = "/n/n"; // blanks out string because of bug 
+    questionBox.innerHTML = questions[x].q;
+    choiceA.innerHTML = "A: " + questions[x].choices[0];
+    choiceB.innerHTML = "B: " + questions[x].choices[1];
+    choiceC.innerHTML = "C: " + questions[x].choices[2];
+    choiceD.innerHTML = "D: " + questions[x].choices[3];
 }
 
 
@@ -93,11 +105,11 @@ function test(button) {
     if (button === questions[currentQuestion].correctAnswer) {
         console.log("correct!!!");
         correct++;
-        document.getElementById("correct-answers").innerHTML = correct;
+        correctAnswers.innerHTML = correct;
     } else {
         console.log("wrong!!!");
         incorrect++;
-        document.getElementById("incorrect-answers").innerHTML = incorrect;
+        incorrectAnswers.innerHTML = incorrect;
     }
     currentQuestion++;
     if (currentQuestion === questions.length) {
@@ -110,3 +122,4 @@ function test(button) {
     
     
 }
+

@@ -3,6 +3,9 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     /* color: white; */
     border-radius: 10px;
+    user-select: none;
+  -webkit-user-select: none; /*Safari*/
+  -moz-user-select: none; /*Firefox*/
     
 }
 body {
@@ -36,12 +39,14 @@ div {
         font-size: 20px;
         border-style: solid;
         
+        
        
 }
 
-#game-start {
+
+#game-start, #game-restart, #num-answers{
     font-family: 'futurama','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    display: flex;
+   
     flex-direction: column;
     justify-content: center;
     /* height: 80px; */
@@ -50,13 +55,25 @@ div {
     margin: 20px;
     font-size: 70px;
     text-align: center;
+
+    
+}
+#game-start {
+     display: flex;
+}
+#game-restart {
+    display: none;
 }
 
-#game-start span {
+
+
+
+.confirm {
     font-family: 'futurama','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 36px;
     padding-top: 60px;
 }
+
 #question {
 
     font-family: 'futurama','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -94,18 +111,19 @@ div {
 .choice {
     height: 30px;
     margin: 10px 0px 10px 0px;
-    /* width: 70%; */
     padding: 5px 0px 0px 10px;
-    /* font-size: 20px; */
+
 }
 
 .choice:hover {
     background-color: #ffffff99;
 }
 .choice:active {
-    margin: 5px 5px 15px -5px;
+    /* margin: 5px 5px 15px -5px;
+    padding: 5px 0px 0px 10px; */
+    margin: 12px -3px 8px 3px;
     padding: 5px 0px 0px 10px;
-    box-shadow: 5px 5px 10px #00000099;
+    box-shadow: inset -3px -3px 10px #00000099;
 }
 
 #score {
