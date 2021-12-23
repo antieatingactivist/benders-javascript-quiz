@@ -4,7 +4,7 @@ var currentQuestion = 0;
 
 var questions = [{
 
-    q: "What color is fry's hair?",
+    q: "What color is Fry's hair?",
     choices: ["Black","Yellow","Orange","He's bald"],
     correctAnswer: 2
 },{
@@ -17,7 +17,7 @@ var questions = [{
     correctAnswer: 2
 },{
     q: "What did Fry's dad name him after?",
-    choices: ["a Defunct electronic's Store","a British Comedian","Fast Food","a Screwdriver"],
+    choices: ["a Defunct electronics Store","a British Comedian","Fast Food","a Screwdriver"],
     correctAnswer: 3
 },{
     q: "Which of these characters is not voiced by Billy West?",
@@ -53,8 +53,19 @@ var questions = [{
     correctAnswer: 0   
 }
 ];
-
+function begin() {
+    correct = 0;
+    incorrect = 0;
+    document.getElementById("correct-answers").innerHTML = correct;
+    document.getElementById("incorrect-answers").innerHTML = incorrect;
+    document.getElementById("game-board").style.display = "none";
+    document.getElementById("question").style.display = "none";
+    document.getElementById("game-start").style.display = "flex";
+}
 function askQuestion(x) {
+    document.getElementById("game-start").style.display = "none";
+    document.getElementById("question").style.display = "flex";
+    document.getElementById("game-board").style.display = "flex";
     document.getElementById("question").innerHTML = "/n/n"; // blanks out string because of bug 
     document.getElementById("question").innerHTML = questions[x].q;
     document.getElementById(0).innerHTML = "A: " + questions[x].choices[0];
@@ -79,7 +90,11 @@ function test(button) {
     currentQuestion++;
     if (currentQuestion === questions.length) {
         currentQuestion = 0;
+        begin();
+        
+    } else {
+        askQuestion(currentQuestion);
     }
-    askQuestion(currentQuestion);
+    
     
 }
