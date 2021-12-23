@@ -55,6 +55,7 @@ var questions = [{
 ];
 
 function askQuestion(x) {
+    document.getElementById("question").innerHTML = "/n/n"; // blanks out string because of bug 
     document.getElementById("question").innerHTML = questions[x].q;
     document.getElementById(0).innerHTML = "A: " + questions[x].choices[0];
     document.getElementById(1).innerHTML = "B: " + questions[x].choices[1];
@@ -76,6 +77,9 @@ function test(button) {
         document.getElementById("incorrect-answers").innerHTML = incorrect;
     }
     currentQuestion++;
+    if (currentQuestion === questions.length) {
+        currentQuestion = 0;
+    }
     askQuestion(currentQuestion);
     
 }
