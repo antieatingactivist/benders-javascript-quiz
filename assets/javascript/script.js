@@ -7,7 +7,8 @@ var startBox = document.getElementById("game-start");
 var restartBox = document.getElementById("game-restart");
 var correctAnswers = document.getElementById("correct-answers");
 var incorrectAnswers = document.getElementById("incorrect-answers");
-var timerDisplay = document.getElementById("time");
+var timerDisplay = document.getElementById("time-clock");
+var timeWarning = document.getElementById("time-warning");
 var choiceA = document.getElementById(0);
 var choiceB = document.getElementById(1);
 var choiceC = document.getElementById(2);
@@ -15,6 +16,7 @@ var choiceD = document.getElementById(3);
 var timeout; 
 var timer;
 var timeLeft = 300;
+
 
 var questions = [{
 
@@ -68,7 +70,7 @@ var questions = [{
 }
 ];
 function begin() {
-    timer = setInterval(countDown, 100);
+    timer = setInterval(countDown, 1000);
 
     correct = 0;
     incorrect = 0;
@@ -135,6 +137,15 @@ function select(button) {
     } else {
         console.log("wrong!!!");
         incorrect++;
+        timeLeft -= 5;
+        timeWarning.style.transition = "0s";
+        timeWarning.style.color = "#ff0000ff";
+        timeWarning.style.fontSize = "100px";
+        timeout = setTimeout(function() {
+            timeWarning.style.transition = "3s";
+            timeWarning.style.color = "#ff000000";
+            timeWarning.style.fontSize = "10px";
+        }, 100);
         incorrectAnswers.innerHTML = incorrect;
         document.getElementById(button).style.backgroundColor = "red";
         document.getElementById(questions[currentQuestion].correctAnswer).style.backgroundColor = "green";
