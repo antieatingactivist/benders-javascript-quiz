@@ -5,12 +5,16 @@ var gameBoard = document.getElementById("game-board");
 var questionBox = document.getElementById("question");
 var startBox = document.getElementById("game-start");
 var restartBox = document.getElementById("game-restart");
-var correctAnswers = document.getElementById("correct-answers")
-var incorrectAnswers = document.getElementById("incorrect-answers")
+var correctAnswers = document.getElementById("correct-answers");
+var incorrectAnswers = document.getElementById("incorrect-answers");
+var timerDisplay = document.getElementById("time");
 var choiceA = document.getElementById(0);
 var choiceB = document.getElementById(1);
 var choiceC = document.getElementById(2);
 var choiceD = document.getElementById(3);
+var timeout; 
+var timer;
+var timeLeft = 300;
 
 var questions = [{
 
@@ -64,6 +68,8 @@ var questions = [{
 }
 ];
 function begin() {
+    timer = setInterval(countDown, 100);
+
     correct = 0;
     incorrect = 0;
     correctAnswers.innerHTML = correct;
@@ -71,6 +77,14 @@ function begin() {
     gameBoard.style.display = "none";
     questionBox.style.display = "none";
     startBox.style.display = "flex";
+    function countDown() {
+        timeLeft--;
+        var seconds = timeLeft%60;
+        timerDisplay.textContent = Math.floor(timeLeft/60) + ":";
+        if (seconds < 10) timerDisplay.textContent += "0" + seconds;
+        else  timerDisplay.textContent += seconds;
+        if (timeLeft === 0) clearInterval(timer);
+    }
 }
 function restart() {
 
@@ -86,30 +100,44 @@ function restart() {
     incorrect = 0;
 }
 function askQuestion(x) {
-    startBox.style.display = "none";
-    restartBox.style.display = "none";
-    questionBox.style.display = "flex";
-    gameBoard.style.display = "flex";
-    questionBox.innerHTML = "/n/n"; // blanks out string because of bug 
-    questionBox.innerHTML = questions[x].q;
-    choiceA.innerHTML = "A: " + questions[x].choices[0];
-    choiceB.innerHTML = "B: " + questions[x].choices[1];
-    choiceC.innerHTML = "C: " + questions[x].choices[2];
-    choiceD.innerHTML = "D: " + questions[x].choices[3];
+    if (x == 0) drawQuestions();
+    else timeout = setTimeout(drawQuestions, 1000);
+     
+    function drawQuestions() {
+        
+        startBox.style.display = "none";
+        restartBox.style.display = "none";
+        questionBox.style.display = "flex";
+        gameBoard.style.display = "flex";
+        // questionBox.innerHTML = "/n/n"; // blanks out string because of bug 
+        questionBox.innerHTML = questions[x].q;
+        choiceA.innerHTML = "A: " + questions[x].choices[0];
+        choiceB.innerHTML = "B: " + questions[x].choices[1];
+        choiceC.innerHTML = "C: " + questions[x].choices[2];
+        choiceD.innerHTML = "D: " + questions[x].choices[3];
+        for (var i=0; i<4; i++) {
+            document.getElementById(i).style.backgroundColor = "#ffffff60";
+            }
+        }
 }
 
 
 
 
-function test(button) {
+function select(button) {
+    
     if (button === questions[currentQuestion].correctAnswer) {
         console.log("correct!!!");
         correct++;
         correctAnswers.innerHTML = correct;
+        document.getElementById(button).style.backgroundColor = "green";
+
     } else {
         console.log("wrong!!!");
         incorrect++;
         incorrectAnswers.innerHTML = incorrect;
+        document.getElementById(button).style.backgroundColor = "red";
+        document.getElementById(questions[currentQuestion].correctAnswer).style.backgroundColor = "green";
     }
     currentQuestion++;
     if (currentQuestion === questions.length) {
@@ -122,4 +150,5 @@ function test(button) {
     
     
 }
+
 

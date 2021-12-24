@@ -13,19 +13,20 @@
 
     <main>
         <div id="game-start" onclick="askQuestion(0)">Would you like to take the Futurama Quiz?<br><span class="confirm">Let's go alreadayyyy!</span></div>
-        <div id="game-restart" onclick="askQuestion(0)">You got 0/0 answers correct!<br><span class="confirm">Another job well done.</span></div>
+        <div id="game-restart" onclick="askQuestion(0)"><span id = "endgame-dialog">You got 0/0 answers correct!<span><br><span class="confirm">Another job well done.</span></div>
         
         <div id="question">question</div>
         
         <section id="game-board">
            <div id="choice-block">
-            <div class="choice" id="0" onclick="test(0)">A: choice</div>
-            <div class="choice" id="1" onclick="test(1)">B: choice</div>
-            <div class="choice" id="2" onclick="test(2)">C: choice</div>
-            <div class="choice" id="3" onclick="test(3)">D: choice</div>
+            <div class="choice" id="0" onclick="select(0)">A: choice</div>
+            <div class="choice" id="1" onclick="select(1)">B: choice</div>
+            <div class="choice" id="2" onclick="select(2)">C: choice</div>
+            <div class="choice" id="3" onclick="select(3)">D: choice</div>
             </div>
             <div id="score">
-                Correct: <span id="correct-answers">0</span><br> Incorrect: <span id="incorrect-answers">0</span>
+             <div class="no-border"> <div class="no-border">  Correct: <span id="correct-answers">0</span> </div><div class="no-border">Incorrect: <span id="incorrect-answers">0</span></div></div>
+              <div id="time" class="no-border">1:00</div>
 
             </div>
          </section>
