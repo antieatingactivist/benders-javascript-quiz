@@ -12,9 +12,16 @@
 
 
     <main>
+
         <div id="game-start" onclick="askQuestion(0)">Would you like to take the Futurama Quiz?<br><span class="confirm">Let's go alreadayyyy!</span></div>
-        <div id="game-restart" onclick="askQuestion(0)"><span id = "endgame-dialog">You got 0/0 answers correct!<span><br><span class="confirm">Another job well done.</span></div>
-        
+        <!-- <div id="game-restart" onclick="begin()"> -->
+            <div id="game-restart">
+            <span id = "endgame-dialog">"xxx"</span><br>
+            <form><input type="text" maxlength="2" id="initials"></form>
+            <span class="confirm">Another job well done.</span>
+            
+        </div>
+       
         <div id="question">question</div>
         
         <section id="game-board">
@@ -25,11 +32,13 @@
             <div class="choice" id="3" onclick="select(3)">D: choice</div>
             </div>
             <div id="score">
-             <div class="no-border"> <div class="no-border">  Correct: <span id="correct-answers">0</span> </div><div class="no-border">Incorrect: <span id="incorrect-answers">0</span></div></div>
-              <div class="no-border" id= "time"><span id="time-clock"></span><span id= "time-warning">-5</span></div>
-
-            </div>
-         </section>
+                <div class="no-border"> 
+                    <div class="no-border">Correct: <span id="correct-answers">0</span> </div>
+                    <div class="no-border">Incorrect: <span id="incorrect-answers">0</span></div>
+                </div>
+                    <div class="no-border" id= "time"><span id="time-clock"></span><span id= "time-warning">-5</span></div>
+                </div>
+        </section>
              
        
       

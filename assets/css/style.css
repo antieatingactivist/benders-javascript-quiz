@@ -3,9 +3,9 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     /* color: white; */
     border-radius: 10px;
-    user-select: none;
-  -webkit-user-select: none; /*Safari*/
-  -moz-user-select: none; /*Firefox*/
+    /* user-select: none; */
+  /* -webkit-user-select: none;  */
+  /* -moz-user-select: none;  */
   /* transition: all .1s; */
     
 }
@@ -43,11 +43,18 @@ div {
         
        
 }
+form input{
+    color: #000000;
+    font-size: 40px;
+    width: 60px;
+    text-align: center;
+    text-transform: uppercase;
+}
 
 
-#game-start, #game-restart, #num-answers, #time-warning{
+#game-start, #game-restart, #num-answers, #time-warning {
+    
     font-family: 'futurama','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-   
     flex-direction: column;
     justify-content: center;
     /* height: 80px; */
@@ -150,7 +157,7 @@ div {
     justify-content: center;
     padding: 10%;
 }
-#time-clock {
+#time-clock, #endgame-dialog {
     font-family: 'futurama','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 #time-warning {
@@ -170,6 +177,7 @@ div {
     -webkit-backdrop-filter: none;
     
 }
+
 
 
 @font-face {

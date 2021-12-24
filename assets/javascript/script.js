@@ -7,15 +7,17 @@ var startBox = document.getElementById("game-start");
 var restartBox = document.getElementById("game-restart");
 var correctAnswers = document.getElementById("correct-answers");
 var incorrectAnswers = document.getElementById("incorrect-answers");
+var endgameDialog = document.getElementById("endgame-dialog");
 var timerDisplay = document.getElementById("time-clock");
 var timeWarning = document.getElementById("time-warning");
+var initials = document.getElementById("initials");
 var choiceA = document.getElementById(0);
 var choiceB = document.getElementById(1);
 var choiceC = document.getElementById(2);
 var choiceD = document.getElementById(3);
 var timeout; 
 var timer;
-var timeLeft = 300;
+var timeLeft;
 
 
 var questions = [{
@@ -70,7 +72,8 @@ var questions = [{
 }
 ];
 function begin() {
-    timer = setInterval(countDown, 1000);
+    timeLeft = 300;
+    timer = setInterval(countDown, 100);
 
     correct = 0;
     incorrect = 0;
@@ -78,6 +81,7 @@ function begin() {
     incorrectAnswers.innerHTML = incorrect;
     gameBoard.style.display = "none";
     questionBox.style.display = "none";
+    restartBox.style.display = "none"
     startBox.style.display = "flex";
     function countDown() {
         timeLeft--;
@@ -85,21 +89,26 @@ function begin() {
         timerDisplay.textContent = Math.floor(timeLeft/60) + ":";
         if (seconds < 10) timerDisplay.textContent += "0" + seconds;
         else  timerDisplay.textContent += seconds;
-        if (timeLeft === 0) clearInterval(timer);
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            restart();
+        }
     }
 }
 function restart() {
-
+    
+    clearInterval(timer);
     correctAnswers.innerHTML = correct;
     incorrectAnswers.innerHTML = incorrect;
+    endgameDialog.textContent = "You got " +correct+ "/" +questions.length+ " answers correct!";
     gameBoard.style.display = "none";
     questionBox.style.display = "none";
     restartBox.style.display = "flex";
     startBox.style.display = "none";
 
     
-    correct = 0;
-    incorrect = 0;
+    // correct = 0;
+    // incorrect = 0;
 }
 function askQuestion(x) {
     if (x == 0) drawQuestions();
@@ -153,11 +162,12 @@ function select(button) {
     currentQuestion++;
     if (currentQuestion === questions.length) {
         currentQuestion = 0;
-        restart();
+        timeout = setTimeout(restart, 1000);
         
     } else {
         askQuestion(currentQuestion);
     }
+
     
     
 }
