@@ -5,12 +5,13 @@ var gameBoard = document.getElementById("game-board");
 var questionBox = document.getElementById("question");
 var startBox = document.getElementById("game-start");
 var restartBox = document.getElementById("game-restart");
+var highScore = document.getElementById("high-score");
 var correctAnswers = document.getElementById("correct-answers");
 var incorrectAnswers = document.getElementById("incorrect-answers");
 var endgameDialog = document.getElementById("endgame-dialog");
 var timerDisplay = document.getElementById("time-clock");
 var timeWarning = document.getElementById("time-warning");
-var initials = document.getElementById("initials");
+var initials = document.getElementById("initials").children[1];
 var choiceA = document.getElementById(0);
 var choiceB = document.getElementById(1);
 var choiceC = document.getElementById(2);
@@ -81,9 +82,10 @@ function begin() {
     incorrectAnswers.innerHTML = incorrect;
     gameBoard.style.display = "none";
     questionBox.style.display = "none";
-    restartBox.style.display = "none"
+    restartBox.style.display = "none";
+    highScore.style.display = "none";
     startBox.style.display = "flex";
-    function countDown() {
+    function countDown() {      ///starts at wrong time!!!!
         timeLeft--;
         var seconds = timeLeft%60;
         timerDisplay.textContent = Math.floor(timeLeft/60) + ":";
@@ -98,18 +100,50 @@ function begin() {
 function restart() {
     
     clearInterval(timer);
+
     correctAnswers.innerHTML = correct;
     incorrectAnswers.innerHTML = incorrect;
     endgameDialog.textContent = "You got " +correct+ "/" +questions.length+ " answers correct!";
     gameBoard.style.display = "none";
     questionBox.style.display = "none";
     restartBox.style.display = "flex";
+    highScore.style.display = "none";
     startBox.style.display = "none";
+
+    document.addEventListener('keydown', typeLetter);
+    function typeLetter(e) {
+
+        if (e.keyCode == 8) {
+            initials.textContent = initials.textContent.slice(0, -1);
+           
+        }
+        else if ( (e.keyCode >= 65) && (e.keyCode <= 90) && (initials.textContent.length < 2)) {
+            initials.textContent += e.key.toUpperCase();
+        }
+        else if ((e.keyCode == 13) && (initials.textContent.length >= 2)) {
+            initials.textContent = "";
+            document.removeEventListener('keydown', typeLetter);
+            addToHighScore();
+        }
+      
+    }
 
     
     // correct = 0;
     // incorrect = 0;
+
 }
+
+function addToHighScore() {
+    restartBox.style.display = "none";
+    startBox.style.display = "none";
+    highScore.style.display = "flex";
+    highScore.append("XXXXXX",document.createElement("div"))
+
+
+}
+
+
 function askQuestion(x) {
     if (x == 0) drawQuestions();
     else timeout = setTimeout(drawQuestions, 1000);
