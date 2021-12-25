@@ -174,9 +174,9 @@ function addToHighScore(initials) {
 
     for (var i = 0; i < 6; i++) {
         if (highScoreArray[i][1] == "empty") {
-            highScore.children[i+1].textContent = "highScore = null";
+            highScore.children[1].children[0].children[i].textContent = "highScore["+i+"] = null;";
         } else {
-            highScore.children[i+1].textContent = "player."+ highScoreArray[i][1] +".score = " + highScoreArray[i][0] + " / " + questions.length + ";"; 
+            highScore.children[1].children[0].children[i].textContent = "player."+ highScoreArray[i][1] +".score = " + highScoreArray[i][0] + " / " + questions.length + ";"; 
         }
        var key = "highscore" + i;
        window.localStorage.setItem(key, (highScoreArray[i][0] + ":" + highScoreArray[i][1]));
