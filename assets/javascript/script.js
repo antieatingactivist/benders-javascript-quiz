@@ -92,7 +92,7 @@ function begin() {
 
     console.log(highScoreArray);
     timeLeft = 300;
-    timer = setInterval(countDown, 100);
+    timer = setInterval(countDown, 1000);
 
     correct = 0;
     incorrect = 0;
@@ -158,18 +158,23 @@ function addToHighScore(initials) {
     restartBox.style.display = "none";
     startBox.style.display = "none";
     highScore.style.display = "flex";
-    highScoreArray.sort((a,b) => a[0] - b[0]);
-    for (i in highScoreArray) {
+    highScoreArray.sort((a,b) => b[0] - a[0]); //sorts high scores highest first;
+    for (i in highScoreArray) { //checks if score is the same as any highscore, then puts your score above it.
         if (correct == highScoreArray[i][0]) {
-            console.log(i);
+            console.log(correct);
             highScoreArray.splice(i, 0, [correct, initials]);
             break;
         }
     }
-    // highScoreArray.push([correct, initials]);
+    if (highScoreArray.length === 6) { // if no tie score, inserts your score above next highest.
+        console.log(correct);
+        highScoreArray.push([correct, initials]);
+        highScoreArray.sort((a,b) => b[0] - a[0]);
+    }
+   
 
-    highScoreArray.splice(6);
-    console.log(highScoreArray);
+    highScoreArray.splice(6); //shortens array to 6
+
 
 
     for (var i = 0; i < 6; i++) {
@@ -183,6 +188,14 @@ function addToHighScore(initials) {
 
        
     }
+    document.addEventListener('keydown', function(e) {
+        if (e.keyCode == 13) {
+                
+            document.removeEventListener('keydown', this);
+            begin();
+        
+        }
+    });
     
 
 
@@ -205,6 +218,20 @@ function askQuestion(x) {
         choiceB.innerHTML = "B: " + questions[x].choices[1];
         choiceC.innerHTML = "C: " + questions[x].choices[2];
         choiceD.innerHTML = "D: " + questions[x].choices[3];
+
+        choiceA.addEventListener('click', buttonPress);
+        choiceB.addEventListener('click', buttonPress);
+        choiceC.addEventListener('click', buttonPress);
+        choiceD.addEventListener('click', buttonPress);
+    
+        function buttonPress(e) {
+            select(e.srcElement.id);
+            choiceA.removeEventListener('click', buttonPress);
+            choiceB.removeEventListener('click', buttonPress);
+            choiceC.removeEventListener('click', buttonPress);
+            choiceD.removeEventListener('click', buttonPress);
+        }
+
         for (var i=0; i<4; i++) {
             document.getElementById(i).style.backgroundColor = "#ffffff60";
             }
@@ -215,7 +242,8 @@ function askQuestion(x) {
 
 
 function select(button) {
-    
+
+
     if (button === questions[currentQuestion].correctAnswer) {
         console.log("correct!!!");
         correct++;

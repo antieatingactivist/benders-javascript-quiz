@@ -203,6 +203,7 @@ div {
         background-color: #161816ea;
         padding: 2px;
         border: 20px solid #b3b68e;
+        
 
 }
 #score-display div {
@@ -231,7 +232,10 @@ div {
 }
 #score div {
     display: flex;
-    width: 50%;
+  
+}
+#score div div{
+  width: 50%;
 }
 
 #time {
