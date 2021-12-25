@@ -19,6 +19,16 @@ var choiceD = document.getElementById(3);
 var timeout; 
 var timer;
 var timeLeft;
+var highScoreArray = [];
+// var highScoreArray = [
+//     window.localStorage.getItem("highscore0").split(":"),
+//     window.localStorage.getItem("highscore1").split(":"),
+//     window.localStorage.getItem("highscore2").split(":"),
+//     window.localStorage.getItem("highscore3").split(":"),
+//     window.localStorage.getItem("highscore4").split(":"),
+//     window.localStorage.getItem("highscore5").split(":"),
+
+// ];
 
 
 var questions = [{
@@ -73,6 +83,14 @@ var questions = [{
 }
 ];
 function begin() {
+    // populates leaderboard with stored values and fills in empty spots.
+    for (var i = 0; i < 6; i++) {
+        var x = window.localStorage.getItem("highscore"+i);
+        if (x)  highScoreArray[i] = x.split(":");
+        else highScoreArray[i] = [0,"empty"];
+    }
+
+    console.log(highScoreArray);
     timeLeft = 300;
     timer = setInterval(countDown, 100);
 
@@ -121,9 +139,11 @@ function restart() {
             initials.textContent += e.key.toUpperCase();
         }
         else if ((e.keyCode == 13) && (initials.textContent.length >= 2)) {
-            initials.textContent = "";
+            
             document.removeEventListener('keydown', typeLetter);
-            addToHighScore();
+
+            addToHighScore(initials.textContent);
+            initials.textContent = "";
         }
       
     }
@@ -134,11 +154,36 @@ function restart() {
 
 }
 
-function addToHighScore() {
+function addToHighScore(initials) {
     restartBox.style.display = "none";
     startBox.style.display = "none";
     highScore.style.display = "flex";
-    highScore.append("XXXXXX",document.createElement("div"))
+    highScoreArray.sort((a,b) => a[0] - b[0]);
+    for (i in highScoreArray) {
+        if (correct == highScoreArray[i][0]) {
+            console.log(i);
+            highScoreArray.splice(i, 0, [correct, initials]);
+            break;
+        }
+    }
+    // highScoreArray.push([correct, initials]);
+
+    highScoreArray.splice(6);
+    console.log(highScoreArray);
+
+
+    for (var i = 0; i < 6; i++) {
+        if (highScoreArray[i][1] == "empty") {
+            highScore.children[i+1].textContent = "highScore = null";
+        } else {
+            highScore.children[i+1].textContent = "player."+ highScoreArray[i][1] +".score = " + highScoreArray[i][0] + " / " + questions.length + ";"; 
+        }
+       var key = "highscore" + i;
+       window.localStorage.setItem(key, (highScoreArray[i][0] + ":" + highScoreArray[i][1]));
+
+       
+    }
+    
 
 
 }

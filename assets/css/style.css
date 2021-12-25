@@ -172,7 +172,7 @@ div {
 #high-score {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
 
 }
 
@@ -184,6 +184,8 @@ div {
 #high-score div {
     font-family: menlo, 'Courier New', Courier, monospace;
     font-size: 30px;
+    padding: 1px;
+    
 }
 
 
