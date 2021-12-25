@@ -112,11 +112,32 @@ div {
 }
 
 .choice {
+    position: relative;
+    display: flex;
+    flex-direction: row;
     height: 30px;
     margin: 10px 0px 10px 0px;
     padding: 5px 0px 0px 10px;
     transition: all 0.2s;
+    /* justify-content: center; */
+    
 
+}
+
+
+.correct-incorrect {
+
+    position: absolute;
+    
+
+ 
+    bottom: 8px;
+    right: 0px;
+    background-color: inherit;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    
 }
 
 .choice:hover {

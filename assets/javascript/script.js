@@ -92,7 +92,7 @@ function begin() {
 
     console.log(highScoreArray);
     timeLeft = 300;
-    timer = setInterval(countDown, 1000);
+ 
 
     correct = 0;
     incorrect = 0;
@@ -103,16 +103,29 @@ function begin() {
     restartBox.style.display = "none";
     highScore.style.display = "none";
     startBox.style.display = "flex";
+
+}
+
+function startCountdown() {
+    timerDisplay.textContent = formatTime();
+    timer = setInterval(countDown, 1000);
     function countDown() {      ///starts at wrong time!!!!
         timeLeft--;
-        var seconds = timeLeft%60;
-        timerDisplay.textContent = Math.floor(timeLeft/60) + ":";
-        if (seconds < 10) timerDisplay.textContent += "0" + seconds;
-        else  timerDisplay.textContent += seconds;
+        timerDisplay.textContent = formatTime();
+
         if (timeLeft === 0) {
             clearInterval(timer);
             restart();
         }
+    }
+    function formatTime() {
+        var str = "";
+        var seconds = timeLeft%60;
+        str = Math.floor(timeLeft/60) + ":";
+        if (seconds < 10) str += "0" + seconds;
+        else  str += seconds;
+        return str;
+
     }
 }
 function restart() {
@@ -214,10 +227,10 @@ function askQuestion(x) {
         gameBoard.style.display = "flex";
         // questionBox.innerHTML = "/n/n"; // blanks out string because of bug 
         questionBox.innerHTML = questions[x].q;
-        choiceA.innerHTML = "A: " + questions[x].choices[0];
-        choiceB.innerHTML = "B: " + questions[x].choices[1];
-        choiceC.innerHTML = "C: " + questions[x].choices[2];
-        choiceD.innerHTML = "D: " + questions[x].choices[3];
+        choiceA.innerHTML = "<span id='0'>A: " + questions[x].choices[0]+ "</span>";
+        choiceB.innerHTML = "<span id='1'>B: " + questions[x].choices[1]+ "</span>";
+        choiceC.innerHTML = "<span id='2'>C: " + questions[x].choices[2]+ "</span>";
+        choiceD.innerHTML = "<span id='3'>D: " + questions[x].choices[3]+ "</span>";
 
         choiceA.addEventListener('click', buttonPress);
         choiceB.addEventListener('click', buttonPress);
@@ -225,6 +238,7 @@ function askQuestion(x) {
         choiceD.addEventListener('click', buttonPress);
     
         function buttonPress(e) {
+            console.log(e);
             select(e.srcElement.id);
             choiceA.removeEventListener('click', buttonPress);
             choiceB.removeEventListener('click', buttonPress);
@@ -234,6 +248,7 @@ function askQuestion(x) {
 
         for (var i=0; i<4; i++) {
             document.getElementById(i).style.backgroundColor = "#ffffff60";
+            document.getElementById(i).style.color = "#000000";
             }
         }
 }
@@ -244,11 +259,13 @@ function askQuestion(x) {
 function select(button) {
 
 
-    if (button === questions[currentQuestion].correctAnswer) {
+    if (button == questions[currentQuestion].correctAnswer) {
         console.log("correct!!!");
         correct++;
         correctAnswers.innerHTML = correct;
         document.getElementById(button).style.backgroundColor = "green";
+        document.getElementById(button).style.color = "#ffffff";
+        document.getElementById(button).innerHTML += "<span class='correct-incorrect'>CORRECT</span>";
 
     } else {
         console.log("wrong!!!");
@@ -264,6 +281,8 @@ function select(button) {
         }, 100);
         incorrectAnswers.innerHTML = incorrect;
         document.getElementById(button).style.backgroundColor = "red";
+        document.getElementById(button).style.color = "#ffffff";
+        document.getElementById(button).innerHTML += "<span class='right'>WRONG!</span>";
         document.getElementById(questions[currentQuestion].correctAnswer).style.backgroundColor = "green";
     }
     currentQuestion++;
