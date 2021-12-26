@@ -12,6 +12,7 @@ var incorrectAnswers = document.getElementById("incorrect-answers");
 var endgameDialog = document.getElementById("endgame-dialog");
 var timerDisplay = document.getElementById("time-clock");
 var timeWarning = document.getElementById("time-warning");
+var bender = document.getElementById("bender");
 var initials = document.getElementById("initials").children[1].children[0];
 var choiceA = document.getElementById(0);
 var choiceB = document.getElementById(1);
@@ -63,7 +64,7 @@ var questions = [{
     correctAnswer: 0   
 },{
     q: "you can easily comment out lines of code using this...",
-    choices: ["/* */","<!-- -->","//","#"],
+    choices: ["/* */","&lt;!-- --&gt;","//","#"],
     correctAnswer: 2   
 }
 ];
@@ -84,6 +85,7 @@ function begin() {
     incorrect = 0;
     correctAnswers.innerHTML = correct;
     incorrectAnswers.innerHTML = incorrect;
+    bender.style.display = "none";
     gameBoard.style.display = "none";
     questionBox.style.display = "none";
     restartBox.style.display = "none";
@@ -168,6 +170,7 @@ function addEventListeners() {
 }
 
 function addToHighScore(initials) {
+    bender.style.display = "inline";
     restartBox.style.display = "none";
     startBox.style.display = "none";
     highScore.style.display = "flex";

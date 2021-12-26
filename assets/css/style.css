@@ -213,6 +213,7 @@ div {
 #high-score header {
     font-size: 80px;
     margin: 20px;
+    display: none;
 }
 
 #high-score section {
@@ -232,20 +233,27 @@ div {
 }
 
 #score-display {
+        /* display: flex; */
+        /* flex-direction: column; */
         /* font-family: menlo, 'Courier New', Courier, monospace; */
         /* font-size: 30px;  */
         background-color: #161816ea;
         padding: 2px;
-        border: 20px solid #b3b68e;
-        
+        /* border: 20px solid #b3b68e; */
+        border-radius: 70px;
+        width: 70%;
+        margin-bottom: 36px;
+        justify-content: center;
+        padding-left: 100px;
 
 }
 #score-display div {
     font-family: menlo, 'Courier New', Courier, monospace;
-    font-size: 24px; 
+    font-size: 20px; 
     color: #00ff00;
     margin: 2px;
     text-align: left;
+    /* width:150px; */
     
 
 }
@@ -298,6 +306,15 @@ div {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     
+}
+
+#bender {
+    position: absolute;
+    width: 70%;
+    height: 400px;
+    /* display: none; */
+    /* top: -100px; */
+    /* border: 5px solid white; */
 }
 
 
