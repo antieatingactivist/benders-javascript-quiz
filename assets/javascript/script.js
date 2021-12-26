@@ -1,4 +1,4 @@
-const startTime = 10;
+const startTime = 100;
 var correct = 0;
 var incorrect = 0;
 var currentQuestion = 0;
@@ -21,68 +21,53 @@ var timeout;
 var timer;
 var timeLeft;
 var highScoreArray = [];
-// var highScoreArray = [
-//     window.localStorage.getItem("highscore0").split(":"),
-//     window.localStorage.getItem("highscore1").split(":"),
-//     window.localStorage.getItem("highscore2").split(":"),
-//     window.localStorage.getItem("highscore3").split(":"),
-//     window.localStorage.getItem("highscore4").split(":"),
-//     window.localStorage.getItem("highscore5").split(":"),
 
-// ];
 
 
 var questions = [{
 
-    q: "What color is Fry's hair?",
-    choices: ["Black","Yellow","Orange","He's bald"],
+    q: "Which is NOT a data type?",
+    choices: ["string","boolean","alert","number"],
     correctAnswer: 2
 },{
-    q: "What species is Leela?",
-    choices: ["Alien","Omicronian","Decopodian","Human"],
+    q: "How do I declare a Variable in Javascript?",
+    choices: ["int myVariable = ...;","$myVariable = ...","uint_8 myVariable = ...;","var myVariable = ...;"],
     correctAnswer: 3
 },{
-    q: "What planet do Lrrr and Ndnd reside when they aren't invading Earth?",
-    choices: ["Urectum","Decapod 10","Omicron Persei 8","Neutral Planet"],
+    q: "Javascript is used for...",
+    choices: ["it's a dead language","writing operating systems","developing dynamic web pages","programming Microcontrollers"],
     correctAnswer: 2
 },{
-    q: "What did Fry's dad name him after?",
-    choices: ["a Defunct electronics Store","a British Comedian","Fast Food","a Screwdriver"],
+    q: "The condition in an if/else statement is enclosed within ...",
+    choices: ["curly braces {}","square brackets []","quotation marks \"\"","parentheses ()"],
     correctAnswer: 3
 },{
-    q: "Which of these characters is not voiced by Billy West?",
-    choices: ["Hermes","Fry","Professor Farnsworth","a Zap Brannigan"],
+    q: "in Javascript, the escape character is ...",
+    choices: ["\\","/","&","--"],
     correctAnswer: 0
 },{
-    q: "What is the name of the DonBot's Joe-Pesci-like henchman?",
-    choices: ["Bender","Clamps","Calculon","PreacherBot"],
+    q: "in Javascript we can increment a variable by ...",
+    choices: ["myVariable = 1;","myVariable++;","myVariable + 1;","myVariable+=myVariable;"],
     correctAnswer: 1
 },{
-    q: "Who is the most prominent President of Earth?",
-    choices: ["Mayor Poopinmeyer","Trump's left foot","Ogden Wurnstrom","Richard Nixon's Head"],
+    q: "when being assigned to variables, string values must be enclosed within ...",
+    choices: ["tildes ~~","astrisks **","parentheses ()","quotation marks \"\""],
     correctAnswer: 3
 },{
-    q: "What is Fry's favorite somewhat addictive beverage?",
-    choices: ["Mountain Dew","LöBrau","Slurm","Maltese Liquor"],
+    q: "in javascript, to print to the debug console, this is used.",
+    choices: ["echo","printf()","console.log()","Serial.println()"],
     correctAnswer: 2
 },{
-    q: "When Bender became God, who was his prophet?",
-    choices: ["Malakai","Ezekiel","Kif","L. Ron Hubbard"],
+    q: "javascript files have this file extention.",
+    choices: [".js",".sh",".jar",".cpp"],
     correctAnswer: 0   
 },{
-    q: "What was the problem with Popplers",
-    choices: ["They were very rare","They caused illness in humans","They were Omicronian babies","They were Hallucinogenic"],
+    q: "you can easily comment out lines of code using this...",
+    choices: ["/* */","<!-- -->","//","#"],
     correctAnswer: 2   
-},{
-    q: "Why does Mom want the last anchovies in existance?",
-    choices: ["They are great on Pizza","She knows Zoidberg likes them","She wants to resurrect the species","Their existance threatens her robot oil business"],
-    correctAnswer: 3   
-},{
-    q: "What is Elzar's spice of choice?",
-    choices: ["A blast from the Spice Weasel","Dash of Paprika","CBD oil","He prefered bland food"],
-    correctAnswer: 0   
 }
 ];
+
 function begin() {
     // populates leaderboard with stored values and fills in empty spots.
     for (var i = 0; i < 6; i++) {
@@ -312,3 +297,54 @@ function select(button) {
 }
 
 
+// var questions = [{
+
+//     q: "What color is Fry's hair?",
+//     choices: ["Black","Yellow","Orange","He's bald"],
+//     correctAnswer: 2
+// },{
+//     q: "What species is Leela?",
+//     choices: ["Alien","Omicronian","Decopodian","Human"],
+//     correctAnswer: 3
+// },{
+//     q: "What planet do Lrrr and Ndnd reside when they aren't invading Earth?",
+//     choices: ["Urectum","Decapod 10","Omicron Persei 8","Neutral Planet"],
+//     correctAnswer: 2
+// },{
+//     q: "What did Fry's dad name him after?",
+//     choices: ["a Defunct electronics Store","a British Comedian","Fast Food","a Screwdriver"],
+//     correctAnswer: 3
+// },{
+//     q: "Which of these characters is not voiced by Billy West?",
+//     choices: ["Hermes","Fry","Professor Farnsworth","a Zap Brannigan"],
+//     correctAnswer: 0
+// },{
+//     q: "What is the name of the DonBot's Joe-Pesci-like henchman?",
+//     choices: ["Bender","Clamps","Calculon","PreacherBot"],
+//     correctAnswer: 1
+// },{
+//     q: "Who is the most prominent President of Earth?",
+//     choices: ["Mayor Poopinmeyer","Trump's left foot","Ogden Wurnstrom","Richard Nixon's Head"],
+//     correctAnswer: 3
+// },{
+//     q: "What is Fry's favorite somewhat addictive beverage?",
+//     choices: ["Mountain Dew","LöBrau","Slurm","Maltese Liquor"],
+//     correctAnswer: 2
+// },{
+//     q: "When Bender became God, who was his prophet?",
+//     choices: ["Malakai","Ezekiel","Kif","L. Ron Hubbard"],
+//     correctAnswer: 0   
+// },{
+//     q: "What was the problem with Popplers",
+//     choices: ["They were very rare","They caused illness in humans","They were Omicronian babies","They were Hallucinogenic"],
+//     correctAnswer: 2   
+// },{
+//     q: "Why does Mom want the last anchovies in existance?",
+//     choices: ["They are great on Pizza","She knows Zoidberg likes them","She wants to resurrect the species","Their existance threatens her robot oil business"],
+//     correctAnswer: 3   
+// },{
+//     q: "What is Elzar's spice of choice?",
+//     choices: ["A blast from the Spice Weasel","Dash of Paprika","CBD oil","He prefered bland food"],
+//     correctAnswer: 0   
+// }
+// ];
