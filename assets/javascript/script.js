@@ -1,3 +1,4 @@
+const startTime = 10;
 var correct = 0;
 var incorrect = 0;
 var currentQuestion = 0;
@@ -11,7 +12,7 @@ var incorrectAnswers = document.getElementById("incorrect-answers");
 var endgameDialog = document.getElementById("endgame-dialog");
 var timerDisplay = document.getElementById("time-clock");
 var timeWarning = document.getElementById("time-warning");
-var initials = document.getElementById("initials").children[1];
+var initials = document.getElementById("initials").children[1].children[0];
 var choiceA = document.getElementById(0);
 var choiceB = document.getElementById(1);
 var choiceC = document.getElementById(2);
@@ -91,9 +92,9 @@ function begin() {
     }
 
     console.log(highScoreArray);
-    timeLeft = 300;
+    timeLeft = startTime;
  
-
+    currentQuestion = 0;
     correct = 0;
     incorrect = 0;
     correctAnswers.innerHTML = correct;
@@ -131,6 +132,7 @@ function startCountdown() {
 function restart() {
     
     clearInterval(timer);
+    removeEventListeners();
 
     correctAnswers.innerHTML = correct;
     incorrectAnswers.innerHTML = incorrect;
@@ -165,6 +167,19 @@ function restart() {
     // correct = 0;
     // incorrect = 0;
 
+}
+
+function removeEventListeners() {
+    choiceA.removeEventListener('click', buttonPress);
+    choiceB.removeEventListener('click', buttonPress);
+    choiceC.removeEventListener('click', buttonPress);
+    choiceD.removeEventListener('click', buttonPress);
+}
+function addEventListeners() {
+    choiceA.addEventListener('click', buttonPress);
+    choiceB.addEventListener('click', buttonPress);
+    choiceC.addEventListener('click', buttonPress);
+    choiceD.addEventListener('click', buttonPress);
 }
 
 function addToHighScore(initials) {
@@ -232,25 +247,19 @@ function askQuestion(x) {
         choiceC.innerHTML = "<span id='2'>C: " + questions[x].choices[2]+ "</span>";
         choiceD.innerHTML = "<span id='3'>D: " + questions[x].choices[3]+ "</span>";
 
-        choiceA.addEventListener('click', buttonPress);
-        choiceB.addEventListener('click', buttonPress);
-        choiceC.addEventListener('click', buttonPress);
-        choiceD.addEventListener('click', buttonPress);
+        addEventListeners();
     
-        function buttonPress(e) {
-            console.log(e);
-            select(e.srcElement.id);
-            choiceA.removeEventListener('click', buttonPress);
-            choiceB.removeEventListener('click', buttonPress);
-            choiceC.removeEventListener('click', buttonPress);
-            choiceD.removeEventListener('click', buttonPress);
-        }
 
         for (var i=0; i<4; i++) {
             document.getElementById(i).style.backgroundColor = "#ffffff60";
             document.getElementById(i).style.color = "#000000";
             }
         }
+}
+function buttonPress(e) {
+    console.log(e);
+    select(e.srcElement.id);
+    removeEventListeners();
 }
 
 
@@ -270,24 +279,28 @@ function select(button) {
     } else {
         console.log("wrong!!!");
         incorrect++;
-        timeLeft -= 5;
-        timeWarning.style.transition = "0s";
-        timeWarning.style.color = "#ff0000ff";
-        timeWarning.style.fontSize = "100px";
-        timeout = setTimeout(function() {
-            timeWarning.style.transition = "3s";
-            timeWarning.style.color = "#ff000000";
-            timeWarning.style.fontSize = "10px";
-        }, 100);
+        if (timeLeft > 5) {
+            timeLeft -= 5;
+        
+        
+            timeWarning.style.transition = "0s";
+            timeWarning.style.color = "#ff0000ff";
+            timeWarning.style.fontSize = "100px";
+            timeout = setTimeout(function() {
+                timeWarning.style.transition = "3s";
+                timeWarning.style.color = "#ff000000";
+                timeWarning.style.fontSize = "10px";
+            }, 100);
+        }
         incorrectAnswers.innerHTML = incorrect;
         document.getElementById(button).style.backgroundColor = "red";
         document.getElementById(button).style.color = "#ffffff";
-        document.getElementById(button).innerHTML += "<span class='right'>WRONG!</span>";
+        document.getElementById(button).innerHTML += "<span class='correct-incorrect'>WRONG!</span>";
         document.getElementById(questions[currentQuestion].correctAnswer).style.backgroundColor = "green";
     }
     currentQuestion++;
     if (currentQuestion === questions.length) {
-        currentQuestion = 0;
+       
         timeout = setTimeout(restart, 1000);
         
     } else {
