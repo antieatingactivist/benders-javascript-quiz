@@ -170,7 +170,7 @@ function addEventListeners() {
 }
 
 function addToHighScore(initials) {
-    bender.style.display = "inline";
+    bender.style.display = "flex";
     restartBox.style.display = "none";
     startBox.style.display = "none";
     highScore.style.display = "flex";
