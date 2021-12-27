@@ -273,7 +273,7 @@ function select(button) {
         
             timeWarning.style.transition = "0s";
             timeWarning.style.color = "#ff0000ff";
-            timeWarning.style.fontSize = "100px";
+            timeWarning.style.fontSize = "150px";
             timeout = setTimeout(function() {
                 timeWarning.style.transition = "3s";
                 timeWarning.style.color = "#ff000000";
