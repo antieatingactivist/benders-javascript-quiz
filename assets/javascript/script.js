@@ -114,6 +114,7 @@ function startCountdown() {
     }
 }
 function askQuestion(x) {
+
     if (x == 0) drawQuestions();
     else timeout = setTimeout(drawQuestions, 1000); //waits 1 second to move on to next question unless its the 1st question.
 
@@ -123,10 +124,10 @@ function askQuestion(x) {
         questionBox.style.display = "flex";
         gameBoard.style.display = "flex";
         questionBox.innerHTML = questions[x].q;
-        choiceA.innerHTML = "<span id='0'><span class='bold futurama-font'>A:</span> " + questions[x].choices[0]+ "</span>";
-        choiceB.innerHTML = "<span id='1'><span class='bold futurama-font'>B:</span> " + questions[x].choices[1]+ "</span>";
-        choiceC.innerHTML = "<span id='2'><span class='bold futurama-font'>C:</span> " + questions[x].choices[2]+ "</span>";
-        choiceD.innerHTML = "<span id='3'><span class='bold futurama-font'>D:</span> " + questions[x].choices[3]+ "</span>";
+        choiceA.innerHTML = "<span id='0'><span class='abcd futurama-font'>A:</span> " + questions[x].choices[0]+ "</span>";
+        choiceB.innerHTML = "<span id='1'><span class='abcd futurama-font'>B:</span> " + questions[x].choices[1]+ "</span>";
+        choiceC.innerHTML = "<span id='2'><span class='abcd futurama-font'>C:</span> " + questions[x].choices[2]+ "</span>";
+        choiceD.innerHTML = "<span id='3'><span class='abcd futurama-font'>D:</span> " + questions[x].choices[3]+ "</span>";
 
         addEventListeners();
     
@@ -135,6 +136,7 @@ function askQuestion(x) {
             document.getElementById(i).className = "choice frosted";
             }
         }
+  
 }
 function buttonPress(e) {
     console.log(e);
@@ -163,7 +165,7 @@ function select(input) {
             // creates a -5 animation when time is deducted      
             timeWarning.style.transition = "0s";
             timeWarning.style.color = "#ff0000ff";
-            timeWarning.style.fontSize = "150px";
+            timeWarning.style.fontSize = "700px";
             timeout = setTimeout(function() {
                 timeWarning.style.transition = "3s";
                 timeWarning.style.color = "#ff000000";

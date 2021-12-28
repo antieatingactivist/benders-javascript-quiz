@@ -45,7 +45,8 @@ main {
     -webkit-backdrop-filter: blur(4px);
     -moz-backdrop-filter: blur(4px);
     border-style: solid;   
-    border-color: #000000;    
+    border-color: #000000; 
+    box-shadow:  7px 7px 5px #00000099;
 
 }
 
@@ -70,7 +71,7 @@ main {
     flex-direction: column;
     justify-content: center;
     height:100%;
-    /* padding-right: 20px;    */
+    padding: 20px;   
     margin: 20px;
     /* font-size: 70px; */
     text-align: center;
@@ -118,9 +119,11 @@ main {
 #choice-block {
     display: inherit;
     flex-direction: column;
-    width: 70%;
-    padding: 10px;
-    border-style: none;
+    width: 100%;
+    padding: 0px 15px 10px 10px;
+    margin-top: -10px;
+    /* border-style: solid; */
+
 }
 
 .choice {
@@ -133,6 +136,7 @@ main {
     min-height: 40px;
     transition: background-color 0.5s;
     font-size: 26px;
+    height: 100%;
 }
 #correct, #incorrect {
     margin: 10px;
@@ -151,13 +155,24 @@ main {
     height: 100%;   
 }
 
-.choice:hover {
-    /* background-color: #ffffff99; */
-}
+/* .choice:hover {
+    background-color: #ffffff99;
+} */
 .choice:active {
     left: 4px;
     top: 4px;
-    box-shadow: inset -3px -3px 10px #00000099;    
+    /* box-shadow: inset -3px -3px 10px #00000099;     */
+    box-shadow: none;
+    background-color: #ffffff33;
+    transition: none;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    -moz-backdrop-filter: blur(2px);
+
+}
+
+.abcd {
+    font-size: 30px;
 }
 
 #endgame-dialog {
@@ -246,9 +261,9 @@ main {
 #score{
     display: inherit;
     flex-direction: column;
-    width: 30%;
-    margin: 10px;
-    padding: 10px;
+    width: 230px;
+    margin: 0px 20px 20px 0px;
+    /* padding: 20px; */
     font-size: 30px;  
 }
 
@@ -262,11 +277,18 @@ main {
 #time {
     display: inherit;
     flex-direction: column;
-    height: 100%;
+    justify-content: center;
+
+    
+    
 }
 #time-clock {
     display: inherit;
+    flex-direction: row;
+    justify-content: center;
     font-size: 90px;
+
+
 }
 /* #time-clock, #endgame-dialog, .confirm, #initials, #high-score header{
     font-family: 'futurama','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -275,10 +297,11 @@ main {
 #time-warning {
     position: absolute;
     color: #ff000000;
-    right: 0px;
-    top: 50px;
+    justify-content: center;
+    right: 50%;
+    /* top: 50px; */
     bottom: 0px;
-    left: 0px;
+    /* left: 50%; */
     transition: 1s;
 }
 
@@ -336,7 +359,8 @@ main {
         height: 25%;
         /* height: 100%; */
         /* padding-right: 20px;    */
-        margin: 10px;
+        margin: 10px 10px 40px 10px;
+        
         /* font-size: 30px; */
         /* text-align: center; */
         
@@ -367,7 +391,7 @@ main {
         /* backdrop-filter: blur(4px); */
         /* -webkit-backdrop-filter: blur(4px); */
         margin: 10px;
-        /* padding: 10px; */
+        padding: 10px;
         
     }
     .choice {
@@ -383,20 +407,18 @@ main {
     
     }
     #game-start {
-        /* display: flex; */
-        /* height: 100%; */
         font-size: 60px;
     }
     .choice:active {
         left: 0px;
         top: 0px;
-        /* margin: 5px 5px 15px -5px;
-        /* padding: 5px 0px 0px 10px; */
-        /* margin: 10px 0px 10px 0px; */
-        /* margin: 12px 5px 10px 0px; */
-        /* padding: 5px 0px 5px 20px; */
-        /* box-shadow: inset -3px -3px 10px #00000099; */
         
     }
+    #time-warning {
+        right:0%;
+        /* left: 40%; */
+
+    }
+
 
 }
