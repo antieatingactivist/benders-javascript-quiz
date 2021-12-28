@@ -179,7 +179,7 @@ main {
     font-size: 70px;
 }
 
-#initials {
+/* #initials {
     display: inherit;
     flex-direction: row;
     justify-content: center;
@@ -191,29 +191,27 @@ main {
 
     width: 100%;
 
-}
-#initials div {
+} */
+#textbox {
 
     height: 100px;
-    
-    
-    min-width: 160px;
+    width: 110px;
+    /* max-width: 110px; */
+    /* min-width: 120px; */
     background-color: #161816ea;
-    
+
  
     
     border: 20px solid #b3b68e;
     text-align: left;
-    
-
-    
-}
-
-#initials span {
     font-size: 80px;
     color: #00ff00;
     font-family: menlo, 'Courier New', Courier, monospace;
+    margin: 20px;
+
+    
 }
+
  #initials aside {
     display: inherit;
     flex-direction: column;

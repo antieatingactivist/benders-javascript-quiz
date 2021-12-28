@@ -13,7 +13,8 @@ var endgameDialog = document.getElementById("endgame-dialog");
 var timerDisplay = document.getElementById("time-clock");
 var timeWarning = document.getElementById("time-warning");
 var bender = document.getElementById("bender");
-var initials = document.getElementById("initials").children[1].children[0];
+// var initials = document.getElementById("initials").children[1].children[0];
+var initials = document.getElementById("textbox");
 var choiceA = document.getElementById(0);
 var choiceB = document.getElementById(1);
 var choiceC = document.getElementById(2);
@@ -205,21 +206,36 @@ function restart() {
     restartBox.style.display = "flex";
 
 
+
+    
     document.addEventListener('keydown', typeLetter);
+    
+
 
     function typeLetter(e) {
-
+        e.preventDefault();
+        e.stopPropagation();
+        
         if (e.keyCode == 8) {
-            initials.textContent = initials.textContent.slice(0, -1);           
+            // initials.textContent = initials.textContent.slice(0, -1);    
+            initials.value = initials.value.slice(0, -1);   
+   
+  
+          
         }
-        else if ( (e.keyCode >= 65) && (e.keyCode <= 90) && (initials.textContent.length < 2)) {
-            initials.textContent += e.key.toUpperCase();
+        else if ( (e.keyCode >= 65) && (e.keyCode <= 90) && (initials.value.length < 2)) {
+            // initials.textContent += e.key.toUpperCase();
+            initials.value += e.key.toUpperCase()
         }
-        else if ((e.keyCode == 13) && (initials.textContent.length >= 2)) {
+        else if ((e.keyCode == 13) && (initials.value.length >= 2)) {
+    
             document.removeEventListener('keydown', typeLetter);
-            addToHighScore(initials.textContent);
-            initials.textContent = "";
+            // addToHighScore(initials.textContent);
+            // initials.textContent = "";
+            addToHighScore(initials.value);
+            // initials.value = "&#9619";
         }
+        
     }
 
     
