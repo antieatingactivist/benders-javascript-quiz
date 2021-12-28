@@ -334,7 +334,7 @@ main {
     src: url('../fonts/AMBIENT.TTF');  
 }
 
-@media (max-width: 768px) {
+@media (max-width: 560px) {
     main {
         /* color: black; */
         /* display: flex; */
@@ -445,7 +445,80 @@ main {
 
 
 }
-@media (max-height: 660px) {
+
+
+
+@media (max-height: 500px) {
+    main {
+        /* color: black; */
+        /* display: flex; */
+        /* flex-direction: column; */
+      
+        /* background-color: #333333; */
+        /* background-image: url(../images/image1.png); */
+        /* background-position: center; */
+        /* background-size: cover; */
+        width: 100vw;
+        height: 96vh;
+        /* min-height: 0; */
+        margin-top: 0%;
+        min-width: 0;
+        overflow-y: hidden;
+        
+    
+    }
+    .choice {
+        /* position: relative; */
+        /* display: flex; */
+        /* flex-direction: row; */
+        /* height: 70px; */
+        /* margin: 0px 0px 10px 0px; */
+        /* padding: 5px 0px 5px 10px; */
+        font-size: 18px;
+        /* transition: background-color 0.5s; */
+        /* justify-content: center; */
+        
+    
+    }
+    #question {
+
+  
+        height: 25%;
+        /* height: 100%; */
+        /* padding-right: 20px;    */
+        margin: 10px 10px 40px 10px;
+        
+        font-size: 28px;
+        /* text-align: center; */
+        
+    
+    }
+    #time-clock {
+        /* display: inherit; */
+        /* flex-direction: row; */
+        /* justify-content: center; */
+        font-size: 60px;
+    
+    
+    }
+    #score{
+        /* display: flex; */
+        /* flex-direction: column; */
+        /* width: calc(100% - 50px); */
+        /* background-color: #ffffff60; */
+        /* backdrop-filter: blur(4px); */
+        /* -webkit-backdrop-filter: blur(4px); */
+        margin: 0px 10px 10px 0px;
+        padding: 0px;
+        
+    }
+    #endgame-dialog {
+        font-size: 40px;
+    }
+
+}
+
+@media (max-height: 0px) {
     #question {
 
   
@@ -516,4 +589,4 @@ main {
         font-size: 40px;
     }
 
-}
+} 

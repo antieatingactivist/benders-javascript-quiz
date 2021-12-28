@@ -160,7 +160,7 @@ function select(input) {
     } else {
         incorrect++;
         
-        if (timeLeft > 5) {
+        if (timeLeft > 10) {  //time penalty mercy if 10 seconds on the clock
             timeLeft -= 5; 
             // creates a -5 animation when time is deducted      
             timeWarning.style.transition = "0s";
