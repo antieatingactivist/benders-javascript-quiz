@@ -83,21 +83,18 @@ function begin() {
     currentQuestion = 0;
     correct = 0;
     incorrect = 0;
+    clearScreen();
+    startBox.style.display = "flex";
     correctAnswers.innerHTML = correct;
     incorrectAnswers.innerHTML = incorrect;
-    bender.style.display = "none";
-    gameBoard.style.display = "none";
-    questionBox.style.display = "none";
-    restartBox.style.display = "none";
-    highScore.style.display = "none";
-    startBox.style.display = "flex";
+
 
 }
 
 function startCountdown() {
     timerDisplay.textContent = formatTime();
     timer = setInterval(countDown, 1000);
-    function countDown() {      ///starts at wrong time!!!!
+    function countDown() {     
         timeLeft--;
         timerDisplay.textContent = formatTime();
 
@@ -116,6 +113,84 @@ function startCountdown() {
 
     }
 }
+function askQuestion(x) {
+    if (x == 0) drawQuestions();
+    else timeout = setTimeout(drawQuestions, 1000); //waits 1 second to move on to next question unless its the 1st question.
+
+    function drawQuestions() {
+        
+        clearScreen();
+        questionBox.style.display = "flex";
+        gameBoard.style.display = "flex";
+        questionBox.innerHTML = questions[x].q;
+        choiceA.innerHTML = "<span id='0'>A: " + questions[x].choices[0]+ "</span>";
+        choiceB.innerHTML = "<span id='1'>B: " + questions[x].choices[1]+ "</span>";
+        choiceC.innerHTML = "<span id='2'>C: " + questions[x].choices[2]+ "</span>";
+        choiceD.innerHTML = "<span id='3'>D: " + questions[x].choices[3]+ "</span>";
+
+        addEventListeners();
+    
+
+        for (var i=0; i<4; i++) {
+            document.getElementById(i).className = "choice frosted";
+            }
+        }
+}
+function buttonPress(e) {
+    console.log(e);
+    select(e.srcElement.id);
+    removeEventListeners();
+}
+
+
+
+
+function select(input) {
+
+
+    if (input == questions[currentQuestion].correctAnswer) {
+        console.log("correct!!!");
+        correct++;
+        correctAnswers.innerHTML = correct;
+        document.getElementById(input).className = "choice frosted green";
+        document.getElementById(input).innerHTML += "<span class='correct-incorrect'>CORRECT</span>";
+
+    } else {
+        console.log("wrong!!!");
+        incorrect++;
+        if (timeLeft > 5) {
+            timeLeft -= 5;
+        
+        
+            timeWarning.style.transition = "0s";
+            timeWarning.style.color = "#ff0000ff";
+            timeWarning.style.fontSize = "150px";
+            timeout = setTimeout(function() {
+                timeWarning.style.transition = "3s";
+                timeWarning.style.color = "#ff000000";
+                timeWarning.style.fontSize = "10px";
+            }, 100);
+        }
+        incorrectAnswers.innerHTML = incorrect;
+        document.getElementById(input).className = "choice frosted red";
+        document.getElementById(input).innerHTML += "<span class='correct-incorrect'>WRONG!</span>";
+        document.getElementById(questions[currentQuestion].correctAnswer).className = "choice frosted green";
+    }
+    currentQuestion++;
+    if (currentQuestion === questions.length) {
+       
+        timeout = setTimeout(restart, 1000);
+        
+    } else {
+        askQuestion(currentQuestion);
+    }
+
+    
+    
+}
+
+
+
 function restart() {
     
     clearInterval(timer);
@@ -124,30 +199,25 @@ function restart() {
     correctAnswers.innerHTML = correct;
     incorrectAnswers.innerHTML = incorrect;
     endgameDialog.textContent = "You got " +correct+ "/" +questions.length+ " answers correct!";
-    gameBoard.style.display = "none";
-    questionBox.style.display = "none";
+    clearScreen();
     restartBox.style.display = "flex";
-    highScore.style.display = "none";
-    startBox.style.display = "none";
+
 
     document.addEventListener('keydown', typeLetter);
+
     function typeLetter(e) {
 
         if (e.keyCode == 8) {
-            initials.textContent = initials.textContent.slice(0, -1);
-           
+            initials.textContent = initials.textContent.slice(0, -1);           
         }
         else if ( (e.keyCode >= 65) && (e.keyCode <= 90) && (initials.textContent.length < 2)) {
             initials.textContent += e.key.toUpperCase();
         }
         else if ((e.keyCode == 13) && (initials.textContent.length >= 2)) {
-            
             document.removeEventListener('keydown', typeLetter);
-
             addToHighScore(initials.textContent);
             initials.textContent = "";
         }
-      
     }
 
     
@@ -156,24 +226,13 @@ function restart() {
 
 }
 
-function removeEventListeners() {
-    choiceA.removeEventListener('click', buttonPress);
-    choiceB.removeEventListener('click', buttonPress);
-    choiceC.removeEventListener('click', buttonPress);
-    choiceD.removeEventListener('click', buttonPress);
-}
-function addEventListeners() {
-    choiceA.addEventListener('click', buttonPress);
-    choiceB.addEventListener('click', buttonPress);
-    choiceC.addEventListener('click', buttonPress);
-    choiceD.addEventListener('click', buttonPress);
-}
+
 
 function addToHighScore(initials) {
+    clearScreen();
     bender.style.display = "flex";
-    restartBox.style.display = "none";
-    startBox.style.display = "none";
     highScore.style.display = "flex";
+
     highScoreArray.sort((a,b) => b[0] - a[0]); //sorts high scores highest first;
     for (i in highScoreArray) { //checks if score is the same as any highscore, then puts your score above it.
         if (correct == highScoreArray[i][0]) {
@@ -195,9 +254,9 @@ function addToHighScore(initials) {
 
     for (var i = 0; i < 6; i++) {
         if (highScoreArray[i][1] == "empty") {
-            highScore.children[1].children[0].children[i].textContent = "highScore["+i+"] = null;";
+            highScore.children[0].children[i].textContent = "highScore["+i+"] = null;";
         } else {
-            highScore.children[1].children[0].children[i].textContent = "player."+ highScoreArray[i][1] +".score = " + highScoreArray[i][0] + " / " + questions.length + ";"; 
+            highScore.children[0].children[i].textContent = "player."+ highScoreArray[i][1] +".score = " + highScoreArray[i][0] + " / " + questions.length + ";"; 
         }
        var key = "highscore" + i;
        window.localStorage.setItem(key, (highScoreArray[i][0] + ":" + highScoreArray[i][1]));
@@ -218,86 +277,25 @@ function addToHighScore(initials) {
 }
 
 
-function askQuestion(x) {
-    if (x == 0) drawQuestions();
-    else timeout = setTimeout(drawQuestions, 1000);
-     
-    function drawQuestions() {
-        
-        startBox.style.display = "none";
-        restartBox.style.display = "none";
-        questionBox.style.display = "flex";
-        gameBoard.style.display = "flex";
-        questionBox.innerHTML = questions[x].q;
-        choiceA.innerHTML = "<span id='0'>A: " + questions[x].choices[0]+ "</span>";
-        choiceB.innerHTML = "<span id='1'>B: " + questions[x].choices[1]+ "</span>";
-        choiceC.innerHTML = "<span id='2'>C: " + questions[x].choices[2]+ "</span>";
-        choiceD.innerHTML = "<span id='3'>D: " + questions[x].choices[3]+ "</span>";
-
-        addEventListeners();
-    
-
-        for (var i=0; i<4; i++) {
-            // document.getElementById(i).style.backgroundColor = "#ffffff00";
-            document.getElementById(i).className = "choice frosted";
-            // document.getElementById(i).style.color = "#000000";
-            }
-        }
+function removeEventListeners() {
+    choiceA.removeEventListener('click', buttonPress);
+    choiceB.removeEventListener('click', buttonPress);
+    choiceC.removeEventListener('click', buttonPress);
+    choiceD.removeEventListener('click', buttonPress);
 }
-function buttonPress(e) {
-    console.log(e);
-    select(e.srcElement.id);
-    removeEventListeners();
+function addEventListeners() {
+    choiceA.addEventListener('click', buttonPress);
+    choiceB.addEventListener('click', buttonPress);
+    choiceC.addEventListener('click', buttonPress);
+    choiceD.addEventListener('click', buttonPress);
 }
-
-
-
-
-function select(input) {
-
-
-    if (input == questions[currentQuestion].correctAnswer) {
-        console.log("correct!!!");
-        correct++;
-        correctAnswers.innerHTML = correct;
-        // document.getElementById(input).style.backgroundColor = "green";
-        document.getElementById(input).className = "choice frosted green";
-        // document.getElementById(input).style.color = "#ffffff";
-        document.getElementById(input).innerHTML += "<span class='correct-incorrect'>CORRECT</span>";
-
-    } else {
-        console.log("wrong!!!");
-        incorrect++;
-        if (timeLeft > 5) {
-            timeLeft -= 5;
-        
-        
-            timeWarning.style.transition = "0s";
-            timeWarning.style.color = "#ff0000ff";
-            timeWarning.style.fontSize = "150px";
-            timeout = setTimeout(function() {
-                timeWarning.style.transition = "3s";
-                timeWarning.style.color = "#ff000000";
-                timeWarning.style.fontSize = "10px";
-            }, 100);
-        }
-        incorrectAnswers.innerHTML = incorrect;
-        document.getElementById(input).className = "choice frosted red";
-        // document.getElementById(input).style.color = "#ffffff";
-        document.getElementById(input).innerHTML += "<span class='correct-incorrect'>WRONG!</span>";
-        document.getElementById(questions[currentQuestion].correctAnswer).className = "choice frosted green";
-    }
-    currentQuestion++;
-    if (currentQuestion === questions.length) {
-       
-        timeout = setTimeout(restart, 1000);
-        
-    } else {
-        askQuestion(currentQuestion);
-    }
-
-    
-    
+function clearScreen() {
+    gameBoard.style.display = "none";
+    questionBox.style.display = "none";
+    restartBox.style.display = "none";
+    highScore.style.display = "none";
+    startBox.style.display = "none";
+    bender.style.display = "none";
 }
 
 

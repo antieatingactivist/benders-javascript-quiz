@@ -7,6 +7,8 @@
     -moz-user-select: none; 
     position: relative;
     
+    
+    
 }
 body {
     
@@ -53,24 +55,28 @@ main {
 }
 
 
+.futurama-font {
+    font-family: 'futurama','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+}
 
+/* #game-start, #game-restart, #num-answers, #time-warning, #high-score, #question, #time-clock, #endgame-dialog, #initials { */
+.full-size {    
 
-#game-start, #game-restart, #num-answers, #time-warning, #high-score, #question, #time-clock {
-    
-    font-family: 'futurama','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     flex-direction: column;
     justify-content: center;
     height:100%;
-    padding-right: 20px;   
+    /* padding-right: 20px;    */
     margin: 20px;
-    font-size: 70px;
+    /* font-size: 70px; */
     text-align: center;
 
     
 }
+
+
 #game-start {
+    font-size: 70px;
      display: inherit;
-     /* height: 100%; */
 }
 #game-restart {
     display: none;
@@ -120,7 +126,9 @@ main {
     transition: background-color 0.5s;
     font-size: 26px;
 }
-
+#correct, #incorrect {
+    margin: 10px
+}
 
 .correct-incorrect {
     position: absolute;
@@ -129,6 +137,7 @@ main {
     background-color: inherit;
     padding-left: 10px;
     padding-right: 10px;   
+
 }
 
 .choice:hover {
@@ -140,10 +149,12 @@ main {
     box-shadow: inset -3px -3px 10px #00000099;    
 }
 
-
+#endgame-dialog {
+    font-size: 70px;
+}
 
 #initials {
-    display: flex;
+    display: inherit;
     flex-direction: row;
     justify-content: center;
     background-color: #00000000;
@@ -178,7 +189,7 @@ main {
     font-family: menlo, 'Courier New', Courier, monospace;
 }
  #initials aside {
-    display: flex;
+    display: inherit;
     flex-direction: column;
     justify-content: center;
     text-align: right;
@@ -193,35 +204,23 @@ main {
 
 #high-score {
     display: none;
-    flex-direction: column;
-    /* justify-content: flex-start; */
-
-}
-
-#high-score header {
-    font-size: 80px;
-    margin: 20px;
-    display: none;
-}
-
-#high-score section {
-    display: flex;
     flex-direction: row;
-    justify-content: center;   
+    justify-content: center;
+
 }
 
-#score-display {
+#high-score-display {
+    
         position: absolute;
         background-color: #161816ea;
         padding: 2px;
         border-radius: 120px;
         width: 420px;
-        bottom: 120px;
-        justify-content: center;
+        bottom: 100px;
         padding: 40px 10px 10px 100px;
 
 }
-#score-display div {
+#high-score-display div {
     font-family: menlo, 'Courier New', Courier, monospace;
     font-size: 19px; 
     color: #00ff00;
@@ -234,7 +233,7 @@ main {
 
 
 #score{
-    display: flex;
+    display: inherit;
     flex-direction: column;
     width: 30%;
     margin: 10px;
@@ -244,26 +243,24 @@ main {
 
 
 #score div {
-    display: flex;
+    display: inherit;
     justify-content: center;
 
 }
 
 #time {
-    position: relative;
-    display: flex;
+    display: inherit;
     flex-direction: column;
     height: 100%;
-    font-size: 80px;
-    justify-content: center;
 }
 #time-clock {
-   text-align: center; 
+    display: inherit;
+    font-size: 70px;
 }
-#time-clock, #endgame-dialog, .confirm, #initials, #high-score header{
+/* #time-clock, #endgame-dialog, .confirm, #initials, #high-score header{
     font-family: 'futurama','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   
-}
+} */
 #time-warning {
     position: absolute;
     color: #ff000000;
@@ -283,7 +280,7 @@ main {
 }
 
 #bender {
-    display: flex;
+    /* display: flex; */
     flex-direction: row;
     justify-content: center;
     position: absolute;

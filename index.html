@@ -10,37 +10,17 @@
 <body onload="begin()">
     
 
-    <!-- <div>player.GC.score = 10 / 12;</div> -->
+
     <main>
-        <div class="frosted" id="high-score" onclick="begin()"><header>High Scores</header>
-            
-            <section>
-             
-                <div id = "score-display">
-                    <div class = "no-border">player.GC.score = 10 / 12;</div>
-                    <div class = "no-border">player.GC.score = 10 / 12;</div>
-                    <div class = "no-border">player.GC.score = 10 / 12;</div>
-                    <div class = "no-border">player.GC.score = 10 / 12;</div>
-                    <div class = "no-border">player.GC.score = 10 / 12;</div>
-                    <div class = "no-border">player.GC.score = 10 / 12;</div>
-                    <div class = "no-border">[bender/isGreat]$ restart?&#9619</div>
-                </div> 
-            
-            </section>
-           
-            
-        </div>
-        <div class="frosted" id="game-start" onclick="askQuestion(0), startCountdown()">Would you like to take Bender's Javascript quiz?<br><span class="confirm">Let's go alreadayyyy!</span></div>
+
+
+<!-- intro Screen -->
+        <div class="frosted futurama-font full-size" id="game-start" onclick="askQuestion(0), startCountdown()">Would you like to take Bender's Javascript quiz?<br><span class="confirm futurama-font">Let's go alreadayyyy!</span></div>
 
         
-        <div class="frosted" id="game-restart">
-        <span id = "endgame-dialog">"xxx"</span>
-        <div id = "initials"><aside>Enter your initials</aside><div><span><!-- initials --></span><span>&#9619</span></div><aside></aside></div>
-        <span class="confirm">Another job well done.</span>
-            
-        </div>
        
-        <div class="frosted" id="question">question</div>
+<!-- main Game Board    -->
+        <div class="frosted futurama-font full-size" id="question">question</div>
         
         <section id="game-board">
            <div id="choice-block">
@@ -51,14 +31,45 @@
             </div>
             <div class="frosted" id="score">
       
-                    <div class="no-border">Correct: <span id="correct-answers">0</span> </div>
+                    <div id="correct" class="futurama-font">Correct: <span class="futurama-font" id="correct-answers">0</span> </div>
                     
               
-                    <div class="no-border" id= "time"><span id="time-clock"></span><span id= "time-warning">-5</span></div>
-                    <div class="no-border">Incorrect: <span id="incorrect-answers">0</span></div>
+                    <div id="time"><span class="futurama-font full-size" id="time-clock"><!-- 0:00 --></span><span class="futurama-font" id="time-warning">-5</span></div>
+                    <div id="incorrect" class="futurama-font">Incorrect: <span class="futurama-font" id="incorrect-answers">0</span></div>
 
             </div>
+
+            
         </section>
+
+
+<!-- Enter Initials -->
+        <div class="frosted full-size" id="game-restart">
+            <span class="futurama-font" id="endgame-dialog">"xxx"</span>
+            <div id = "initials"><aside>Enter your initials</aside><div><span><!-- initials --></span><span>&#9619</span></div><aside></aside></div>
+            <span class="confirm futurama-font">Another job well done.</span>
+                
+        </div>
+
+<!-- LeaderBoard -->
+        <div class="frosted full-size" id="high-score" onclick="begin()">
+            
+     
+             
+            <div id = "high-score-display">
+                <div class = "no-border">player.GC.score = 10 / 12;</div>
+                <div class = "no-border">player.GC.score = 10 / 12;</div>
+                <div class = "no-border">player.GC.score = 10 / 12;</div>
+                <div class = "no-border">player.GC.score = 10 / 12;</div>
+                <div class = "no-border">player.GC.score = 10 / 12;</div>
+                <div class = "no-border">player.GC.score = 10 / 12;</div>
+                <div class = "no-border">[bender/isGreat]$ restart?&#9619</div>
+            </div> 
+        
+ 
+       
+        
+    </div>
              
        
       
