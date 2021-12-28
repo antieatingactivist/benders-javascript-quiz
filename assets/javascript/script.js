@@ -228,7 +228,6 @@ function askQuestion(x) {
         restartBox.style.display = "none";
         questionBox.style.display = "flex";
         gameBoard.style.display = "flex";
-        // questionBox.innerHTML = "/n/n"; // blanks out string because of bug 
         questionBox.innerHTML = questions[x].q;
         choiceA.innerHTML = "<span id='0'>A: " + questions[x].choices[0]+ "</span>";
         choiceB.innerHTML = "<span id='1'>B: " + questions[x].choices[1]+ "</span>";
@@ -239,8 +238,9 @@ function askQuestion(x) {
     
 
         for (var i=0; i<4; i++) {
-            document.getElementById(i).style.backgroundColor = "#ffffff60";
-            document.getElementById(i).style.color = "#000000";
+            // document.getElementById(i).style.backgroundColor = "#ffffff00";
+            document.getElementById(i).className = "choice frosted";
+            // document.getElementById(i).style.color = "#000000";
             }
         }
 }
@@ -253,16 +253,17 @@ function buttonPress(e) {
 
 
 
-function select(button) {
+function select(input) {
 
 
-    if (button == questions[currentQuestion].correctAnswer) {
+    if (input == questions[currentQuestion].correctAnswer) {
         console.log("correct!!!");
         correct++;
         correctAnswers.innerHTML = correct;
-        document.getElementById(button).style.backgroundColor = "green";
-        document.getElementById(button).style.color = "#ffffff";
-        document.getElementById(button).innerHTML += "<span class='correct-incorrect'>CORRECT</span>";
+        // document.getElementById(input).style.backgroundColor = "green";
+        document.getElementById(input).className = "choice frosted green";
+        // document.getElementById(input).style.color = "#ffffff";
+        document.getElementById(input).innerHTML += "<span class='correct-incorrect'>CORRECT</span>";
 
     } else {
         console.log("wrong!!!");
@@ -281,10 +282,10 @@ function select(button) {
             }, 100);
         }
         incorrectAnswers.innerHTML = incorrect;
-        document.getElementById(button).style.backgroundColor = "red";
-        document.getElementById(button).style.color = "#ffffff";
-        document.getElementById(button).innerHTML += "<span class='correct-incorrect'>WRONG!</span>";
-        document.getElementById(questions[currentQuestion].correctAnswer).style.backgroundColor = "green";
+        document.getElementById(input).className = "choice frosted red";
+        // document.getElementById(input).style.color = "#ffffff";
+        document.getElementById(input).innerHTML += "<span class='correct-incorrect'>WRONG!</span>";
+        document.getElementById(questions[currentQuestion].correctAnswer).className = "choice frosted green";
     }
     currentQuestion++;
     if (currentQuestion === questions.length) {
