@@ -36,16 +36,21 @@ main {
     margin-top: 10%;
     min-width: 700px;
 }
-
+.bold {
+    font-weight: bold;
+}
 .frosted {
     background-color: #ffffff60;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    -moz-backdrop-filter: blur(4px);
     border-style: solid;   
     border-color: #000000;    
+
 }
 
 .green {
+    
     background-color: #009900ff;
     color: #dddddd;
 }
@@ -87,6 +92,7 @@ main {
 
 .confirm {
     font-size: 36px;  
+    padding: 20px;
 }
 
 #question {
@@ -127,17 +133,20 @@ main {
     font-size: 26px;
 }
 #correct, #incorrect {
-    margin: 10px
+    margin: 10px;
 }
 
 .correct-incorrect {
+    display: inherit;
+    flex-direction: column;
+    justify-content: center;
     position: absolute;
-    bottom: 8px;
     right: 0px;
+    top: 0px;
     background-color: inherit;
-    padding-left: 10px;
-    padding-right: 10px;   
-
+    padding-left: 40px;
+    padding-right: 10px;
+    height: 100%;   
 }
 
 .choice:hover {
@@ -255,7 +264,7 @@ main {
 }
 #time-clock {
     display: inherit;
-    font-size: 70px;
+    font-size: 90px;
 }
 /* #time-clock, #endgame-dialog, .confirm, #initials, #high-score header{
     font-family: 'futurama','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
