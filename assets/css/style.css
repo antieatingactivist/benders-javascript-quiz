@@ -34,7 +34,8 @@ main {
     width: 80%;
     height: 600px;
     margin-top: 10%;
-    min-width: 700px;
+    min-width: 750px;
+    max-width: 1400px;
 }
 .bold {
     font-weight: bold;
