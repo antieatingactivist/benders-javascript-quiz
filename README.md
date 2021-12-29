@@ -14,7 +14,6 @@ var questions = [{
     choices: ["string","boolean","alert","number"],
     correctAnswer: 2
 },{ //......
-
 ```
 
 - Local Storage is used for the leaderboard.
@@ -32,19 +31,18 @@ function retrieveScoreBoard() {
 - Event Listeners are utilized for user input on both the keyboard and mouse.
 
 ```
-        if (e.key == "Backspace") {   
-            initials.value = initials.value.slice(0, -1);             
-        }
-        else if ( (e.key.match(/[a-zA-Z]/) ) && (initials.value.length < 2)) {
-            initials.value += e.key.toUpperCase()
-        }
-        else if ((e.key == "Enter") && (initials.value.length >= 2)) {
+if (e.key == "Backspace") {   
+    initials.value = initials.value.slice(0, -1);             
+}
+else if ( (e.key.match(/[a-zA-Z]/) ) && (initials.value.length < 2)) {
+    initials.value += e.key.toUpperCase()
+}
+else if ((e.key == "Enter") && (initials.value.length >= 2)) {
 
-            document.removeEventListener('keydown', typeLetter);
-            addToHighScore(initials.value);
-            initials.value = "";
-        }
-       
+    document.removeEventListener('keydown', typeLetter);
+    addToHighScore(initials.value);
+    initials.value = "";
+}      
 ```
 
 
