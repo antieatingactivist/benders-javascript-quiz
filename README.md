@@ -29,7 +29,7 @@ function retrieveScoreBoard() {
 }
 ```
 
-- Even Listeners are utilized for user input on both the keyboard and mouse.
+- Event Listeners are utilized for user input on both the keyboard and mouse.
 
 ```
         if (e.key == "Backspace") {   
