@@ -83,22 +83,22 @@ function begin() {
     startBox.style.display = "flex";
     correctAnswers.innerHTML = correct;
     incorrectAnswers.innerHTML = incorrect;
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', enterKey); 
+    function enterKey(e) {
         if (e.key == "Enter") {
                 
-            document.removeEventListener('keydown', this);
+            document.removeEventListener('keydown', enterKey);
             askQuestion(0);
             // startCountdown();
         
         }
-    });
+    }
 }
 
 function startCountdown() {
     timerDisplay.textContent = formatTime();
     timer = setInterval(countDown, 1000);
     function countDown() { 
-        console.log(timeLeft);    
         timeLeft--;
         timerDisplay.textContent = formatTime();
         if (timeLeft === 0) {
@@ -150,7 +150,6 @@ function askQuestion(x) {
 function select(input) {
 
     if (input == questions[currentQuestion].correctAnswer) {
-        console.log("correct!!!");
         correct++;
         correctAnswers.innerHTML = correct;
         document.getElementById(input).className += " green";
@@ -233,13 +232,11 @@ function addToHighScore(initials) {
     highScoreArray.sort((a,b) => b[0] - a[0]); //sorts high scores highest first;
     for (i in highScoreArray) { //checks if score is the same as any highscore, then puts your score above it.
         if (correct == highScoreArray[i][0]) {
-            console.log(correct);
             highScoreArray.splice(i, 0, [correct, initials]);
             break;
         }
     }
     if (highScoreArray.length === 6) { // if no tie score, inserts your score above next highest.
-        console.log(correct);
         highScoreArray.push([correct, initials]);
         highScoreArray.sort((a,b) => b[0] - a[0]);
     }
@@ -257,14 +254,15 @@ function addToHighScore(initials) {
        window.localStorage.setItem(key, (highScoreArray[i][0] + ":" + highScoreArray[i][1]));
     }
 
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', enterKey);
+    function enterKey(e) {
         if (e.key == "Enter") {
                 
-            document.removeEventListener('keydown', this);
+            document.removeEventListener('keydown', enterKey);
             begin();
         
         }
-    });
+    }
 
 }
 
@@ -293,7 +291,6 @@ function addMouseClickListeners() {
 
 }
 function buttonPress(e) {
-    console.log(e);
     select(e.srcElement.id);
     removeMouseClickListeners();
 }
