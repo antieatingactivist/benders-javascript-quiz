@@ -1,7 +1,7 @@
 # Bender's Javascript Quiz
 
 
-## https://antieatingactivist.github.io/futurama-quiz/
+## https://antieatingactivist.github.io/benders-javascript-quiz/
 
 This is a Javascript Fundamental Quiz, hosted by me, Bender. It can be easily repurposed for other quiz types with the use of an Object holding all of the question and answer combinations. The quiz is timed and deducts 5 seconds when a wrong answer is selected. At the conclusion of the quiz, you will have the opportunity to save your highschool to a persistant locally stored leaderboard.
 
@@ -60,13 +60,13 @@ else if ((e.key == "Enter") && (initials.value.length >= 2)) {
 
 ## Deployed Link
 
-* [https://antieatingactivist.github.io/futurama-quiz/](https://antieatingactivist.github.io/futurama-quiz/)
+* [https://antieatingactivist.github.io/benders-javascript-quiz/](https://antieatingactivist.github.io/benders-javascript-quiz/)
 
 
 ## Authors
 
 Garrett Corbin
 
-- [https://antieatingactivist.github.io/futurama-quiz/](https://antieatingactivist.github.io/futurama-quiz/)
+- [https://antieatingactivist.github.io/benders-javascript-quiz/](https://antieatingactivist.github.io/benders-javascript-quiz/)
 - [https://github.com/antieatingactivist/](https://github.com/)
 - [https://www.linkedin.com/in/garrett-corbin-7a7777227/](https://www.linkedin.com/)
