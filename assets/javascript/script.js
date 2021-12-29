@@ -1,4 +1,4 @@
-const startTime = 100;
+const startTime = 100; //sets timer
 var correct = 0;
 var incorrect = 0;
 var currentQuestion = 0;
@@ -13,7 +13,6 @@ var endgameDialog = document.getElementById("endgame-dialog");
 var timerDisplay = document.getElementById("time-clock");
 var timeWarning = document.getElementById("time-warning");
 var bender = document.getElementById("bender");
-// var initials = document.getElementById("initials").children[1].children[0];
 var initials = document.getElementById("textbox");
 var choiceA = document.getElementById(0);
 var choiceB = document.getElementById(1);
@@ -23,9 +22,6 @@ var timeout;
 var timer;
 var timeLeft;
 var highScoreArray = [];
-
-
-
 var questions = [{
 
     q: "Which is NOT a data type?",
@@ -69,18 +65,17 @@ var questions = [{
     correctAnswer: 2   
 }
 ];
-
-function begin() {
-    // populates leaderboard with stored values and fills in empty spots.
+function retrieveScoreBoard() {
     for (var i = 0; i < 6; i++) {
         var x = window.localStorage.getItem("highscore"+i);
-        if (x)  highScoreArray[i] = x.split(":");
-        else highScoreArray[i] = [0,"empty"];
+        if (x)  highScoreArray[i] = x.split(":"); //splits : separated string into array
+        else highScoreArray[i] = [0,"empty"]; //fills array with "empty" if no high score
     }
+}
+function begin() {
 
-    console.log(highScoreArray);
+    retrieveScoreBoard();
     timeLeft = startTime;
- 
     currentQuestion = 0;
     correct = 0;
     incorrect = 0;
@@ -88,20 +83,27 @@ function begin() {
     startBox.style.display = "flex";
     correctAnswers.innerHTML = correct;
     incorrectAnswers.innerHTML = incorrect;
-
-
+    document.addEventListener('keydown', function(e) {
+        if (e.key == "Enter") {
+                
+            document.removeEventListener('keydown', this);
+            askQuestion(0);
+            // startCountdown();
+        
+        }
+    });
 }
 
 function startCountdown() {
     timerDisplay.textContent = formatTime();
     timer = setInterval(countDown, 1000);
-    function countDown() {     
+    function countDown() { 
+        console.log(timeLeft);    
         timeLeft--;
         timerDisplay.textContent = formatTime();
-
         if (timeLeft === 0) {
             clearInterval(timer);
-            restart();
+            showScore();
         }
     }
     function formatTime() {
@@ -114,10 +116,15 @@ function startCountdown() {
 
     }
 }
+
 function askQuestion(x) {
 
-    if (x == 0) drawQuestions();
-    else timeout = setTimeout(drawQuestions, 1000); //waits 1 second to move on to next question unless its the 1st question.
+    if (x == 0) {
+        drawQuestions();
+        clearInterval(timer);
+        startCountdown();
+    }
+    else timeout = setTimeout(drawQuestions, 1000);   //waits 1 second to move on to next question unless its the 1st question.
 
     function drawQuestions() {
         
@@ -125,31 +132,22 @@ function askQuestion(x) {
         questionBox.style.display = "flex";
         gameBoard.style.display = "flex";
         questionBox.innerHTML = questions[x].q;
+
         choiceA.innerHTML = "<span id='0'><span class='abcd futurama-font'>A:</span> " + questions[x].choices[0]+ "</span>";
         choiceB.innerHTML = "<span id='1'><span class='abcd futurama-font'>B:</span> " + questions[x].choices[1]+ "</span>";
         choiceC.innerHTML = "<span id='2'><span class='abcd futurama-font'>C:</span> " + questions[x].choices[2]+ "</span>";
         choiceD.innerHTML = "<span id='3'><span class='abcd futurama-font'>D:</span> " + questions[x].choices[3]+ "</span>";
 
-        addEventListeners();
+        addMouseClickListeners();
     
-
         for (var i=0; i<4; i++) {
             document.getElementById(i).className = "choice frosted";
-            }
         }
-  
+    }
 }
-function buttonPress(e) {
-    console.log(e);
-    select(e.srcElement.id);
-    removeEventListeners();
-}
-
-
 
 
 function select(input) {
-
 
     if (input == questions[currentQuestion].correctAnswer) {
         console.log("correct!!!");
@@ -161,15 +159,14 @@ function select(input) {
     } else {
         incorrect++;
         
-        if (timeLeft > 10) {  //time penalty mercy if 10 seconds on the clock
-            timeLeft -= 5; 
-            // creates a -5 animation when time is deducted      
+        if (timeLeft > 10) {     //time penalty mercy if 10 seconds on the clock
+            timeLeft -= 5;      // creates a -5 animation when time is deducted      
             timeWarning.style.transition = "0s";
-            timeWarning.style.color = "#ff0000ff";
+            timeWarning.style.color = "#990000ff";
             timeWarning.style.fontSize = "700px";
             timeout = setTimeout(function() {
-                timeWarning.style.transition = "3s";
-                timeWarning.style.color = "#ff000000";
+                timeWarning.style.transition = "all 5s cubic-bezier(0, 1.1, 0.8, 1) ";
+                timeWarning.style.color = "#99000000";
                 timeWarning.style.fontSize = "10px";
             }, 100);
         }
@@ -182,65 +179,47 @@ function select(input) {
     currentQuestion++;
     if (currentQuestion === questions.length) {
        
-        timeout = setTimeout(restart, 1000);
+        timeout = setTimeout(showScore, 1000);
         
     } else {
         askQuestion(currentQuestion);
     }
-
-    
     
 }
 
 
 
-function restart() {
+function showScore() {
     
     clearInterval(timer);
-    removeEventListeners();
+    removeMouseClickListeners();
 
     correctAnswers.innerHTML = correct;
     incorrectAnswers.innerHTML = incorrect;
-    endgameDialog.textContent = "You got " +correct+ "/" +questions.length+ " answers correct!";
+    endgameDialog.textContent = "You got " + correct + "/" + questions.length + " answers correct!";
     clearScreen();
     restartBox.style.display = "flex";
-
-
-
-    
+   
     document.addEventListener('keydown', typeLetter);
     
-
-
     function typeLetter(e) {
         e.preventDefault();
         e.stopPropagation();
         
-        if (e.keyCode == 8) {
-            // initials.textContent = initials.textContent.slice(0, -1);    
-            initials.value = initials.value.slice(0, -1);   
-   
-  
-          
+        if (e.key == "Backspace") {   
+            initials.value = initials.value.slice(0, -1);             
         }
-        else if ( (e.keyCode >= 65) && (e.keyCode <= 90) && (initials.value.length < 2)) {
-            // initials.textContent += e.key.toUpperCase();
+        else if ( (e.key.match(/[a-zA-Z]/) ) && (initials.value.length < 2)) {
             initials.value += e.key.toUpperCase()
         }
-        else if ((e.keyCode == 13) && (initials.value.length >= 2)) {
-    
+        else if ((e.key == "Enter") && (initials.value.length >= 2)) {
+
             document.removeEventListener('keydown', typeLetter);
-            // addToHighScore(initials.textContent);
-            // initials.textContent = "";
             addToHighScore(initials.value);
-            // initials.value = "&#9619";
+            initials.value = "";
         }
         
     }
-
-    
-    // correct = 0;
-    // incorrect = 0;
 
 }
 
@@ -268,8 +247,6 @@ function addToHighScore(initials) {
 
     highScoreArray.splice(6); //shortens array to 6
 
-
-
     for (var i = 0; i < 6; i++) {
         if (highScoreArray[i][1] == "empty") {
             highScore.children[0].children[i].textContent = "highScore["+i+"] = null;";
@@ -278,35 +255,20 @@ function addToHighScore(initials) {
         }
        var key = "highscore" + i;
        window.localStorage.setItem(key, (highScoreArray[i][0] + ":" + highScoreArray[i][1]));
-
-       
     }
+
     document.addEventListener('keydown', function(e) {
-        if (e.keyCode == 13) {
+        if (e.key == "Enter") {
                 
             document.removeEventListener('keydown', this);
             begin();
         
         }
     });
-    
-
 
 }
 
 
-function removeEventListeners() {
-    choiceA.removeEventListener('click', buttonPress);
-    choiceB.removeEventListener('click', buttonPress);
-    choiceC.removeEventListener('click', buttonPress);
-    choiceD.removeEventListener('click', buttonPress);
-}
-function addEventListeners() {
-    choiceA.addEventListener('click', buttonPress);
-    choiceB.addEventListener('click', buttonPress);
-    choiceC.addEventListener('click', buttonPress);
-    choiceD.addEventListener('click', buttonPress);
-}
 function clearScreen() {
     gameBoard.style.display = "none";
     questionBox.style.display = "none";
@@ -314,6 +276,46 @@ function clearScreen() {
     highScore.style.display = "none";
     startBox.style.display = "none";
     bender.style.display = "none";
+}
+function removeMouseClickListeners() {
+    choiceA.removeEventListener('click', buttonPress);
+    choiceB.removeEventListener('click', buttonPress);
+    choiceC.removeEventListener('click', buttonPress);
+    choiceD.removeEventListener('click', buttonPress);
+    document.removeEventListener('keydown', keyPress);
+}
+function addMouseClickListeners() {
+    choiceA.addEventListener('click', buttonPress);
+    choiceB.addEventListener('click', buttonPress);
+    choiceC.addEventListener('click', buttonPress);
+    choiceD.addEventListener('click', buttonPress);
+    document.addEventListener('keydown', keyPress); 
+
+}
+function buttonPress(e) {
+    console.log(e);
+    select(e.srcElement.id);
+    removeMouseClickListeners();
+}
+function keyPress(e) {  
+    switch (e.key) {           
+        case 'a': {
+            select(0); 
+            break;
+        }
+        case 'b': {
+            select(1); 
+            break;
+        }
+        case 'c': {
+            select(2);
+            break;
+        }
+        case 'd': {
+            select(3); 
+            break;
+        }
+    }
 }
 
 

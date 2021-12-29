@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Futurama Quiz</title>
+    <title>Bender's Javascrict Quiz!!</title>
 </head>
 <body onload="begin()">
     
@@ -16,7 +16,7 @@
 
 
 <!-- intro Screen -->
-        <div class="frosted futurama-font full-size" id="game-start" onclick="askQuestion(0), startCountdown()">Would you like to take Bender's Javascript quiz?<br><span class="confirm futurama-font">Let's go alreadayyyy!</span></div>
+        <div class="frosted futurama-font full-size" id="game-start" onclick="askQuestion(0)">Would you like to take Bender's Javascript quiz?<br><span class="confirm futurama-font">Let's go alreadayyyy!</span></div>
 
         
        
@@ -48,7 +48,7 @@
         <div class="frosted full-size" id="game-restart">
             <span class="futurama-font" id="endgame-dialog">"xxx"</span>
           
-           
+            <span class="confirm futurama-font">Enter Your Initials Meat Bag.</span>
             <div><input type="text" id="textbox" size="2" maxlength="2"/></div>
             <span class="confirm futurama-font">Another job well done.</span>
                 
@@ -72,7 +72,7 @@
  
        
         
-    </div>
+        </div>
              
        
       
@@ -83,10 +83,10 @@
 
 
 
-        <div id="bender" class="no-border"><img src="./assets/images/bender5.png" /></div>
+        <div id="bender" class="no-border"><img src="./assets/images/bender5.png" onclick="begin()"/></div>
     </main>
 
-    <script type="text/javascript" src="assets/javascript/script.js"></script>
+    <script type="text/javascript" src="assets/javascript/script.js" ></script>
     
 </body>
 </html>
