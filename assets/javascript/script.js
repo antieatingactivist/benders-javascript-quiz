@@ -1,28 +1,40 @@
-const startTime = 100; //sets timer
+const startTime = 90; //sets timer (seconds)
+
+const gameBoard = document.getElementById("game-board");
+const questionBox = document.getElementById("question");
+const startBox = document.getElementById("game-start");
+const restartBox = document.getElementById("game-restart");
+const highScore = document.getElementById("high-score");
+const correctAnswers = document.getElementById("correct-answers");
+const incorrectAnswers = document.getElementById("incorrect-answers");
+const endgameDialog = document.getElementById("endgame-dialog");
+const quote = document.getElementById("bender-quote");
+const timerDisplay = document.getElementById("time-clock");
+const timeWarning = document.getElementById("time-warning");
+const bender = document.getElementById("bender");
+const initials = document.getElementById("textbox");
+const choiceA = document.getElementById(0);
+const choiceB = document.getElementById(1);
+const choiceC = document.getElementById(2);
+const choiceD = document.getElementById(3);
 var correct = 0;
 var incorrect = 0;
 var currentQuestion = 0;
-var gameBoard = document.getElementById("game-board");
-var questionBox = document.getElementById("question");
-var startBox = document.getElementById("game-start");
-var restartBox = document.getElementById("game-restart");
-var highScore = document.getElementById("high-score");
-var correctAnswers = document.getElementById("correct-answers");
-var incorrectAnswers = document.getElementById("incorrect-answers");
-var endgameDialog = document.getElementById("endgame-dialog");
-var timerDisplay = document.getElementById("time-clock");
-var timeWarning = document.getElementById("time-warning");
-var bender = document.getElementById("bender");
-var initials = document.getElementById("textbox");
-var choiceA = document.getElementById(0);
-var choiceB = document.getElementById(1);
-var choiceC = document.getElementById(2);
-var choiceD = document.getElementById(3);
 var timeout; 
 var timer;
 var timeLeft;
 var highScoreArray = [];
-var questions = [{
+
+const benderQuotes = [ //quotes worst to best
+    "Aaaand we're boned!",
+    "No! My cheating unit Malfunctioned!",
+    "Another job well done.",
+    "Hey, this guy's alright!",
+    "Eh, great is OK, but amazing would be great.",  
+    "Yep, everything worked out great thanks to good old Bender."
+];
+
+const questions = [{
 
     q: "Which is NOT a data type?",
     choices: ["string","boolean","alert","number"],
@@ -89,7 +101,6 @@ function begin() {
                 
             document.removeEventListener('keydown', enterKey);
             askQuestion(0);
-            // startCountdown();
         
         }
     }
@@ -188,7 +199,10 @@ function select(input) {
 
 
 function showScore() {
-    
+
+        //selects a bender quote according to your score.
+    quote.textContent = benderQuotes[ Math.floor( (correct / questions.length)*(benderQuotes.length-1) ) ]; 
+
     clearInterval(timer);
     removeMouseClickListeners();
 
@@ -227,6 +241,7 @@ function addToHighScore(initials) {
     clearScreen();
     bender.style.display = "flex";
     highScore.style.display = "flex";
+
 
     highScoreArray.sort((a,b) => b[0] - a[0]); //sorts high scores highest first;
     for (i in highScoreArray) { //checks if score is the same as any highscore, then puts your score above it.
