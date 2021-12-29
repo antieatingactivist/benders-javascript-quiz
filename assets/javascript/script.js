@@ -107,9 +107,8 @@ function startCountdown() {
         }
     }
     function formatTime() {
-        var str = "";
         var seconds = timeLeft%60;
-        str = Math.floor(timeLeft/60) + ":";
+        var str = Math.floor(timeLeft/60) + ":";
         if (seconds < 10) str += "0" + seconds;
         else  str += seconds;
         return str;
