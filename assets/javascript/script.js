@@ -78,15 +78,17 @@ const questions = [{
 }
 ];
 function retrieveScoreBoard() {
+    var array = [];
     for (var i = 0; i < 6; i++) {
         var x = window.localStorage.getItem("highscore"+i);
-        if (x)  highScoreArray[i] = x.split(":"); //splits : separated string into array
-        else highScoreArray[i] = [0,"empty"]; //fills array with "empty" if no high score
+        if (x)  array[i] = x.split(":"); //splits : separated string into array
+        else array[i] = [0,"empty"]; //fills array with "empty" if no high score
     }
+    return array;
 }
 function begin() {
 
-    retrieveScoreBoard();
+    highScoreArray = retrieveScoreBoard();
     timeLeft = startTime;
     currentQuestion = 0;
     correct = 0;
@@ -118,18 +120,18 @@ function startCountdown() {
         }
     }
     function formatTime() {
-        var seconds = timeLeft%60;
-        var str = Math.floor(timeLeft/60) + ":";
-        if (seconds < 10) str += "0" + seconds;
-        else  str += seconds;
-        return str;
+        var seconds = timeLeft%60;   // uses modulous to get extra seconds
+        var minutes = Math.floor(timeLeft/60) + ":"; // gets minutes
+        if (seconds < 10) minutes += "0" + seconds;
+        else  minutes += seconds;
+        return minutes;
 
     }
 }
 
 function askQuestion(x) {
 
-    if (x == 0) {
+    if (x == 0) {  // first question exception
         drawQuestions();
         clearInterval(timer);
         startCountdown();
@@ -222,7 +224,7 @@ function showScore() {
             initials.value = initials.value.slice(0, -1);             
         }
         else if ( (e.key.match(/[a-zA-Z]/) ) && (initials.value.length < 2)) {
-            initials.value += e.key.toUpperCase()
+            initials.value += e.key.toUpperCase();
         }
         else if ((e.key == "Enter") && (initials.value.length >= 2)) {
 
@@ -260,9 +262,9 @@ function addToHighScore(initials) {
 
     for (var i = 0; i < 6; i++) {
         if (highScoreArray[i][1] == "empty") {
-            highScore.children[0].children[i].textContent = "highScore["+i+"] = null;";
+            highScore.children[0].children[i].textContent = "highScore["+i+"] = null;";   //fake code
         } else {
-            highScore.children[0].children[i].textContent = "player."+ highScoreArray[i][1] +".score = " + highScoreArray[i][0] + " / " + questions.length + ";"; 
+            highScore.children[0].children[i].textContent = "player."+ highScoreArray[i][1] +".score = " + highScoreArray[i][0] + " / " + questions.length + ";";  
         }
        var key = "highscore" + i;
        window.localStorage.setItem(key, (highScoreArray[i][0] + ":" + highScoreArray[i][1]));
@@ -305,7 +307,7 @@ function addMouseClickListeners() {
 
 }
 function buttonPress(e) {
-    select(e.srcElement.id);
+    select(e.srcElement.id); // gets ID of which choice was clicked in quiz
     removeMouseClickListeners();
 }
 function keyPress(e) {  
