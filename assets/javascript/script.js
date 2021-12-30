@@ -114,7 +114,7 @@ function startCountdown() {
     function countDown() { 
         timeLeft--;
         timerDisplay.textContent = formatTime();
-        if (timeLeft === 0) {
+        if (timeLeft <= 0) {
             clearInterval(timer);
             showScore();
         }
@@ -160,6 +160,7 @@ function askQuestion(x) {
 
 
 function select(input) {
+
     removeMouseClickListeners();
     if (input == questions[currentQuestion].correctAnswer) {
         correct++;
