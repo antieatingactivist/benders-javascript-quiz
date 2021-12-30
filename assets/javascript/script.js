@@ -160,7 +160,7 @@ function askQuestion(x) {
 
 
 function select(input) {
-
+    removeMouseClickListeners();
     if (input == questions[currentQuestion].correctAnswer) {
         correct++;
         correctAnswers.innerHTML = correct;
