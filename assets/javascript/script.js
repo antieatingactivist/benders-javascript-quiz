@@ -229,7 +229,6 @@ function showScore() {
         }
         else if ( (e.key.match(/^[a-zA-Z]{1}$/) ) && (initials.value.length < 2)) {   //regex accepts a-z, A-Z, and filters out anything more than 1 character.
             initials.value += e.key.toUpperCase();
-            console.log(e);
         }
         else if ((e.key == "Enter") && (initials.value.length >= 2)) {
 
