@@ -116,6 +116,7 @@ function startCountdown() {
         timeLeft--;
         timerDisplay.textContent = formatTime();
         if (timeLeft <= 0) {
+            timeLeft = 0;
             clearInterval(timer);
             if (!gameOver) showScore();
         }
@@ -191,7 +192,7 @@ function select(input) {
     }
     currentQuestion++;
     if (currentQuestion === questions.length) {
-        timerLeft = 0;
+        
         timeout = setTimeout(showScore, 1000);
         
     } else {
