@@ -24,6 +24,7 @@ var timeout;
 var timer;
 var timeLeft;
 var highScoreArray = [];
+var gameOver;
 
 const benderQuotes = [ //quotes worst to best
     "Aaaand we're boned!",
@@ -87,7 +88,7 @@ function retrieveScoreBoard() {
     return array;
 }
 function begin() {
-
+    gameOver = false;
     highScoreArray = retrieveScoreBoard();
     timeLeft = startTime;
     currentQuestion = 0;
@@ -116,7 +117,7 @@ function startCountdown() {
         timerDisplay.textContent = formatTime();
         if (timeLeft <= 0) {
             clearInterval(timer);
-            showScore();
+            if (!gameOver) showScore();
         }
     }
     function formatTime() {
@@ -190,7 +191,7 @@ function select(input) {
     }
     currentQuestion++;
     if (currentQuestion === questions.length) {
-       
+        timerLeft = 0;
         timeout = setTimeout(showScore, 1000);
         
     } else {
@@ -202,11 +203,12 @@ function select(input) {
 
 
 function showScore() {
-
+    clearInterval(timer);
+    gameOver = true;
         //selects a bender quote according to your score.
     quote.textContent = benderQuotes[ Math.floor( (correct / questions.length)*(benderQuotes.length-1) ) ]; 
 
-    clearInterval(timer);
+    
     removeMouseClickListeners();
 
     correctAnswers.innerHTML = correct;
@@ -241,6 +243,7 @@ function showScore() {
 
 
 function addToHighScore(initials) {
+    clearInterval(timer);
     clearScreen();
     bender.style.display = "flex";
     highScore.style.display = "flex";
