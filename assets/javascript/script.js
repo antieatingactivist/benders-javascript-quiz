@@ -235,8 +235,8 @@ function showScore() {
             document.removeEventListener('keydown', typeLetter);
             addToHighScore(initials.value);
             initials.value = "";
+            document.activeElement.blur();   //hide keyboard in iOS
         }
-        
     }
 
 }
