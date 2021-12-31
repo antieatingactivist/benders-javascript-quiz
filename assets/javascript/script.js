@@ -80,14 +80,19 @@ function retrieveScoreBoard() {
     var array = [];
     for (var i = 0; i < 6; i++) {
         var x = window.localStorage.getItem("highscore"+i);
-        if (x)  array[i] = x.split(":"); //splits : separated string into array
-        else array[i] = [0,"empty"]; //fills array with "empty" if no high score
+        if (x)  {
+            array[i] = x.split(":"); //splits : separated string into array
+            array[i][0] = parseInt(array[i][0]);
+            array[i].push(false);
+            }
+        else array[i] = [0,'empty',false]; //fills array with "empty" if no high score
     }
     return array;
 }
 function begin() {
     gameOver = false;
     highScoreArray = retrieveScoreBoard();
+    console.log(highScoreArray);
     timeLeft = startTime;
     currentQuestion = 0;
     correct = 0;
@@ -96,6 +101,8 @@ function begin() {
     startBox.style.display = "flex";
     correctAnswers.innerHTML = correct;
     incorrectAnswers.innerHTML = incorrect;
+
+    // create and destroy event handler for enter key and mouse click
     document.addEventListener('keydown', enterKey);
     document.addEventListener('click', enterKey);
     function enterKey(e) {
@@ -206,13 +213,11 @@ function select(input) {
 
 
 function showScore() {
-
+    //removes remaining time and sets gameOver
     timeLeft = 0;
     gameOver = true;
-        //selects a bender quote according to your score.
-    quote.textContent = benderQuotes[ Math.floor( (correct / questions.length)*(benderQuotes.length-1) ) ]; 
-
-    
+    //selects a bender quote according to your score.
+    quote.textContent = benderQuotes[ Math.floor( (correct / questions.length)*(benderQuotes.length-1) ) ];    
     removeMultiChoiceListeners();
 
     correctAnswers.innerHTML = correct;
@@ -255,29 +260,41 @@ function addToHighScore(initials) {
     highScoreArray.sort((a,b) => b[0] - a[0]); //sorts high scores highest first;
     for (i in highScoreArray) { //checks if score is the same as any highscore, then puts your score above it.
         if (correct == highScoreArray[i][0]) {
-            highScoreArray.splice(i, 0, [correct, initials]);
+            highScoreArray.splice(i, 0, [correct, initials, true]);
             break;
         }
     }
     if (highScoreArray.length === 6) { // if no tie score, inserts your score above next highest.
-        highScoreArray.push([correct, initials]);
+        highScoreArray.push([correct, initials, true]);
         highScoreArray.sort((a,b) => b[0] - a[0]);
     }
    
 
     highScoreArray.splice(6); //shortens array to 6
-
+    console.log(highScoreArray);
     for (var i = 0; i < 6; i++) {
         if (highScoreArray[i][1] == "empty") {
             highScore.children[0].children[i].textContent = "highScore["+i+"] = null;";   //fake code
         } else {
             highScore.children[0].children[i].textContent = "player."+ highScoreArray[i][1] +".score = " + highScoreArray[i][0] + " / " + questions.length + ";";  
         }
+        if (highScoreArray[i][2]) { // highlights your new score if you made the board.
+            highScore.children[0].children[i].style.fontWeight = "900";
+            highScore.children[0].children[i].style.backgroundColor = "#00ff00";
+            highScore.children[0].children[i].style.color = "#161816ea";
+
+        }
+        else {
+            highScore.children[0].children[i].style.fontWeight = "100";
+            highScore.children[0].children[i].style.backgroundColor = "#00000000";
+            highScore.children[0].children[i].style.color = "#00ff00";
+        }
+   
        var key = "highscore" + i;
        window.localStorage.setItem(key, (highScoreArray[i][0] + ":" + highScoreArray[i][1]));
     }
 
-
+    // create and destroy event handler for enter key and mouse click
     document.addEventListener('keydown', enterKey);
     document.addEventListener('click', enterKey);
     function enterKey(e) {
@@ -291,7 +308,7 @@ function addToHighScore(initials) {
 
 }
 
-
+//hides all panels of app.
 function clearScreen() {
     gameBoard.style.display = "none";
     questionBox.style.display = "none";
@@ -300,6 +317,12 @@ function clearScreen() {
     startBox.style.display = "none";
     bender.style.display = "none";
 }
+//Event handler for clicking on buttons
+function buttonPress(e) {
+    select(e.srcElement.id); // gets ID of which choice was clicked in quiz
+    removeMultiChoiceListeners();
+}
+// creates and destroys all events on multiple choice buttons
 function removeMultiChoiceListeners() {
     choiceA.removeEventListener('click', buttonPress);
     choiceB.removeEventListener('click', buttonPress);
@@ -315,10 +338,7 @@ function addMultiChoiceListeners() {
     document.addEventListener('keydown', keyPress); 
 }
 
-function buttonPress(e) {
-    select(e.srcElement.id); // gets ID of which choice was clicked in quiz
-    removeMultiChoiceListeners();
-}
+//event handler for a,b,c, and d key for selecting answers
 function keyPress(e) {  
     switch (e.key) {           
         case 'a': {

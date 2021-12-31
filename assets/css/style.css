@@ -168,7 +168,7 @@ main {
 #textbox {
     height: 100px;
     width: 110px;
-    background-color: #161816ea;
+    background-color: #161816ea; 
     border: 20px solid #b3b68e;
     text-align: left;
     font-size: 80px;
@@ -185,20 +185,23 @@ main {
 
 #high-score-display {
         position: absolute;
-        background-color: #161816ea;
+        background-color: #161816ea; /*overridden in js */
         padding: 2px;
         border-radius: 120px;
         width: 420px;
         bottom: 100px;
+        margin-left: -15px;
         padding: 40px 10px 10px 100px;
 }
 
 #high-score-display div {
     font-family: menlo, 'Courier New', Courier, monospace;
     font-size: 19px; 
-    color: #00ff00;
+    color: #00ff00; /*overridden in js */
     margin: 2px;
     text-align: left;
+    border-radius: 0;
+    width: 80%;
 }
 
 #score{
