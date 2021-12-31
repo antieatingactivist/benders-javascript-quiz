@@ -20,11 +20,9 @@ const choiceD = document.getElementById(3);
 var correct = 0;
 var incorrect = 0;
 var currentQuestion = 0;
-var timeout; 
-var timer;
-var timeLeft;
+var timeLeft = 0;
 var highScoreArray = [];
-var gameOver;
+var gameOver = true;
 
 const benderQuotes = [ //quotes worst to best
     "Aaaand we're boned!",
@@ -98,21 +96,24 @@ function begin() {
     startBox.style.display = "flex";
     correctAnswers.innerHTML = correct;
     incorrectAnswers.innerHTML = incorrect;
-    document.addEventListener('keydown', enterKey); 
+    document.addEventListener('keydown', enterKey);
+    document.addEventListener('click', enterKey);
     function enterKey(e) {
-        if (e.key == "Enter") {
-                
+        if (e.key == "Enter" || e.type == "click") {
             document.removeEventListener('keydown', enterKey);
+            document.removeEventListener('click', enterKey);
             askQuestion(0);
         
         }
     }
+
 }
 
 function startCountdown() {
+
+    clearInterval(timer);
     timerDisplay.textContent = formatTime();
-    timer = setInterval(countDown, 1000);
-    function countDown() { 
+    var timer = setInterval(function() {
         timeLeft--;
         timerDisplay.textContent = formatTime();
         if (timeLeft <= 0) {
@@ -120,7 +121,9 @@ function startCountdown() {
             clearInterval(timer);
             if (!gameOver) showScore();
         }
-    }
+        
+    },1000);
+
     function formatTime() {
         var seconds = timeLeft%60;   // uses modulous to get extra seconds
         var minutes = Math.floor(timeLeft/60) + ":"; // gets minutes
@@ -135,10 +138,9 @@ function askQuestion(x) {
 
     if (x == 0) {  // first question exception
         drawQuestions();
-        clearInterval(timer);
         startCountdown();
     }
-    else timeout = setTimeout(drawQuestions, 1000);   //waits 1 second to move on to next question unless its the 1st question.
+    else setTimeout(drawQuestions, 1000);   //waits 1 second to move on to next question unless its the 1st question.
 
     function drawQuestions() {
         
@@ -152,7 +154,7 @@ function askQuestion(x) {
         choiceC.innerHTML = "<span id='2'><span class='abcd futurama-font'>C:</span> " + questions[x].choices[2]+ "</span>";
         choiceD.innerHTML = "<span id='3'><span class='abcd futurama-font'>D:</span> " + questions[x].choices[3]+ "</span>";
 
-        addMouseClickListeners();
+        addMultiChoiceListeners();
     
         for (var i=0; i<4; i++) {
             document.getElementById(i).className = "choice frosted";
@@ -163,7 +165,7 @@ function askQuestion(x) {
 
 function select(input) {
 
-    removeMouseClickListeners();
+    removeMultiChoiceListeners();
     if (input == questions[currentQuestion].correctAnswer) {
         correct++;
         correctAnswers.innerHTML = correct;
@@ -178,7 +180,7 @@ function select(input) {
             timeWarning.style.transition = "0s";
             timeWarning.style.color = "#990000ff";
             timeWarning.style.fontSize = "700px";
-            timeout = setTimeout(function() {
+            setTimeout(function() {
                 timeWarning.style.transition = "all 5s cubic-bezier(0, 1.1, 0.8, 1) ";
                 timeWarning.style.color = "#99000000";
                 timeWarning.style.fontSize = "10px";
@@ -193,7 +195,7 @@ function select(input) {
     currentQuestion++;
     if (currentQuestion === questions.length) {
         
-        timeout = setTimeout(showScore, 1000);
+        setTimeout(showScore, 1000);
         
     } else {
         askQuestion(currentQuestion);
@@ -204,13 +206,14 @@ function select(input) {
 
 
 function showScore() {
-    clearInterval(timer);
+
+    timeLeft = 0;
     gameOver = true;
         //selects a bender quote according to your score.
     quote.textContent = benderQuotes[ Math.floor( (correct / questions.length)*(benderQuotes.length-1) ) ]; 
 
     
-    removeMouseClickListeners();
+    removeMultiChoiceListeners();
 
     correctAnswers.innerHTML = correct;
     incorrectAnswers.innerHTML = incorrect;
@@ -223,7 +226,6 @@ function showScore() {
     function typeLetter(e) {
         e.preventDefault();
         e.stopPropagation();
-        
         if (e.key == "Backspace") {   
             initials.value = initials.value.slice(0, -1);             
         }
@@ -244,7 +246,7 @@ function showScore() {
 
 
 function addToHighScore(initials) {
-    clearInterval(timer);
+
     clearScreen();
     bender.style.display = "flex";
     highScore.style.display = "flex";
@@ -275,11 +277,13 @@ function addToHighScore(initials) {
        window.localStorage.setItem(key, (highScoreArray[i][0] + ":" + highScoreArray[i][1]));
     }
 
+
     document.addEventListener('keydown', enterKey);
+    document.addEventListener('click', enterKey);
     function enterKey(e) {
-        if (e.key == "Enter") {
-                
+        if (e.key == "Enter" || e.type == "click") {
             document.removeEventListener('keydown', enterKey);
+            document.removeEventListener('click', enterKey);
             begin();
         
         }
@@ -296,24 +300,24 @@ function clearScreen() {
     startBox.style.display = "none";
     bender.style.display = "none";
 }
-function removeMouseClickListeners() {
+function removeMultiChoiceListeners() {
     choiceA.removeEventListener('click', buttonPress);
     choiceB.removeEventListener('click', buttonPress);
     choiceC.removeEventListener('click', buttonPress);
     choiceD.removeEventListener('click', buttonPress);
     document.removeEventListener('keydown', keyPress);
 }
-function addMouseClickListeners() {
+function addMultiChoiceListeners() {
     choiceA.addEventListener('click', buttonPress);
     choiceB.addEventListener('click', buttonPress);
     choiceC.addEventListener('click', buttonPress);
     choiceD.addEventListener('click', buttonPress);
     document.addEventListener('keydown', keyPress); 
-
 }
+
 function buttonPress(e) {
     select(e.srcElement.id); // gets ID of which choice was clicked in quiz
-    removeMouseClickListeners();
+    removeMultiChoiceListeners();
 }
 function keyPress(e) {  
     switch (e.key) {           
