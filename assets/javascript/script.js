@@ -38,9 +38,9 @@ const questions = [{
     q: "Which is NOT a data type?",
     choices: ["string","boolean","alert","number"],
     correctAnswer: 2
-},{
+},{   
     q: "How do I declare a Variable in Javascript?",
-    choices: ["int myVariable = ...;","$myVariable = ...","uint_8 myVariable = ...;","var myVariable = ...;"],
+    choices: ["int myVariable = ...;","$myVariable = ...;","uint_8 myVariable = ...;","var myVariable = ...;"],
     correctAnswer: 3
 },{
     q: "Javascript is used for...",

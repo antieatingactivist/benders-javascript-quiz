@@ -47,16 +47,6 @@ main {
 
 }
 
-.green {
-    
-    background-color: #009900ff;
-    color: #dddddd;
-}
-.red {
-    background-color: #990000ff;
-    color: #dddddd;
-}
-
 
 .futurama-font {
     font-family: 'futurama','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
@@ -123,7 +113,7 @@ main {
     margin: 5px 0px 5px 0px;
     padding: 0px 0px 0px 10px;
     min-height: 40px;
-    transition: background-color 0.5s;
+    transition: background-color 0.3s, box-shadow 0.3s;
     font-size: 26px;
     height: 100%;
 }
@@ -155,6 +145,24 @@ main {
     -webkit-backdrop-filter: blur(2px);
     -moz-backdrop-filter: blur(2px);
 }
+
+.choice:hover {
+    background-color: #ffff99aa;
+    box-shadow:  7px 7px 5px #666600aa;
+}
+
+.green, .green:hover {
+    
+    background-color: #009900ff;
+    color: #dddddd;
+    box-shadow:  7px 7px 5px #008800aa;
+}
+.red, .red:hover{
+    background-color: #990000ff;
+    color: #dddddd;
+    box-shadow:  7px 7px 5px #880000aa;
+}
+
 
 .abcd {
     font-size: 30px;
@@ -311,6 +319,22 @@ main {
     .choice:active {
         left: 0px;
         top: 0px;   
+    }
+    .choice:hover {
+        background-color: #ffffff60;
+        box-shadow:  7px 7px 5px #000000aa;
+        
+    }
+    .green, .green:hover {
+    
+        background-color: #009900ff;
+        color: #dddddd;
+        box-shadow:  7px 7px 5px #000000aa;
+    }
+    .red, .red:hover{
+        background-color: #990000ff;
+        color: #dddddd;
+        box-shadow:  7px 7px 5px #000000aa;
     }
 
     #time-warning {
