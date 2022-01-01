@@ -92,8 +92,7 @@ function retrieveScoreBoard() {
 function begin() {
     gameOver = false;
     highScoreArray = retrieveScoreBoard();
-    console.log(highScoreArray);
-    timeLeft = startTime;
+
     currentQuestion = 0;
     correct = 0;
     incorrect = 0;
@@ -117,12 +116,12 @@ function begin() {
 }
 
 function startCountdown() {
-
+    timeLeft = startTime;
     clearInterval(timer);
-    timerDisplay.textContent = formatTime();
+    timerDisplay.innerHTML = formatTime();
     var timer = setInterval(function() {
         timeLeft--;
-        timerDisplay.textContent = formatTime();
+        timerDisplay.innerHTML = formatTime();
         if (timeLeft <= 0) {
             timeLeft = 0;
             clearInterval(timer);
@@ -133,9 +132,14 @@ function startCountdown() {
 
     function formatTime() {
         var seconds = timeLeft%60;   // uses modulous to get extra seconds
-        var minutes = Math.floor(timeLeft/60) + ":"; // gets minutes
-        if (seconds < 10) minutes += "0" + seconds;
-        else  minutes += seconds;
+        var minutes = "<span class='futurama-font'>" + Math.floor(timeLeft/60) + "</span>" + "<span class='futurama-font' id='colon'>:</span>"; // gets minutes
+      
+        if (seconds < 10) minutes += "<span class='futurama-font'>0" + seconds + "</span>";
+        else  minutes += "<span class='futurama-font'>" + seconds + "</span>";
+        if (seconds%2) timerDisplay.children[0].style.color = "#00000000";
+        else timerDisplay.children[0].style.color = "#000000ff";
+        console.log(minutes);
+        // document.getElementById("colon").style.color = "#00000000";
         return minutes;
 
     }
@@ -182,7 +186,7 @@ function select(input) {
     } else {
         incorrect++;
         
-        if (timeLeft > 10) {     //time penalty mercy if 10 seconds on the clock
+        if (timeLeft >= 10) {     //time penalty mercy if 10 seconds on the clock
             timeLeft -= 5;      // creates a -5 animation when time is deducted      
             timeWarning.style.transition = "0s";
             timeWarning.style.color = "#990000ff";
@@ -260,7 +264,7 @@ function addToHighScore(initials) {
     highScoreArray.sort((a,b) => b[0] - a[0]); //sorts high scores highest first;
     for (i in highScoreArray) { //checks if score is the same as any highscore, then puts your score above it.
         if (correct == highScoreArray[i][0]) {
-            highScoreArray.splice(i, 0, [correct, initials, true]);
+            highScoreArray.splice(i, 0, [correct, initials, true]); //"true" is just a temporary marker for the most recent score so that it can be highlighted
             break;
         }
     }
@@ -301,8 +305,7 @@ function addToHighScore(initials) {
         if (e.key == "Enter" || e.type == "click") {
             document.removeEventListener('keydown', enterKey);
             document.removeEventListener('click', enterKey);
-            begin();
-        
+            begin();       
         }
     }
 

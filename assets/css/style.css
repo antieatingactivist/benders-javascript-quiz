@@ -233,6 +233,15 @@ main {
 
 }
 
+
+#colon {
+    position: inherit;
+    display: block;
+    background-color: khaki;
+    
+
+}
+
 #time-warning {
     position: absolute;
     color: #ff000000;
